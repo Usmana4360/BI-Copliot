@@ -140,3 +140,13 @@ def test_openai():
             "error": str(e),
         }
 
+from backend.config import DATABASE_URL
+
+@app.get("/debug/db")
+def debug_db():
+    return {
+        "exists": DATABASE_URL is not None,
+        "starts_with": DATABASE_URL[:20] if DATABASE_URL else None
+    }
+
+

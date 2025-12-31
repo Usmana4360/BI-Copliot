@@ -2244,3 +2244,5 @@ json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
 2025-12-31 14:44:01,905 [INFO] bi_copilot - Trace 1767174234725 - run_agent total_latency_ms=7328.04
 2025-12-31 15:35:12,246 [INFO] bi_copilot - Logging initialized
 2025-12-31 19:19:04,837 [INFO] bi_copilot - Logging initialized
+2025-12-31 19:35:39,901 [INFO] bi_copilot - Logging initialized
+2025-12-31 19:35:55,706 [INFO] bi_copilot - Logging initialized
