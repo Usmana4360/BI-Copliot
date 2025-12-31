@@ -114,19 +114,22 @@ def safety_eval():
         examples=result["examples"],
     )
 
-import openai
+from openai import OpenAI
 from backend.config import OPENAI_API_KEY, OPENAI_MODEL
 
-openai.api_key = OPENAI_API_KEY
+client = OpenAI(api_key=OPENAI_API_KEY)
 
 @app.get("/test_openai")
 def test_openai():
     try:
-        response = openai.ChatCompletion.create(
+        response = client.chat.completions.create(
             model=OPENAI_MODEL,
-            messages=[{"role": "user", "content": "Hello"}],
+            messages=[
+                {"role": "user", "content": "Hello"}
+            ],
             max_tokens=10,
         )
+
         return {
             "success": True,
             "reply": response.choices[0].message.content,
@@ -136,3 +139,4 @@ def test_openai():
             "success": False,
             "error": str(e),
         }
+
