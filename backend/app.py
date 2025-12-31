@@ -64,22 +64,6 @@ class SafetyEvalResponse(BaseModel):
     total_dangerous: int
     blocked_dangerous: int
     examples: list
-import openai
-from fastapi import APIRouter
-
-router = APIRouter()
-
-@router.get("/test_openai")
-def test_openai():
-    try:
-        resp = openai.ChatCompletion.create(
-            model="gpt-4.1-mini",
-            messages=[{"role": "user", "content": "Hello"}]
-        )
-        return {"success": True, "reply": resp.choices[0].message.content}
-    except Exception as e:
-        return {"success": False, "error": str(e)}
-
 
 @app.post("/agent/nl2sql", response_model=NLQueryResponse)
 def nl2sql(req: NLQueryRequest):
@@ -129,3 +113,26 @@ def safety_eval():
         blocked_dangerous=result["blocked_dangerous"],
         examples=result["examples"],
     )
+
+import openai
+from backend.config import OPENAI_API_KEY, OPENAI_MODEL
+
+openai.api_key = OPENAI_API_KEY
+
+@app.get("/test_openai")
+def test_openai():
+    try:
+        response = openai.ChatCompletion.create(
+            model=OPENAI_MODEL,
+            messages=[{"role": "user", "content": "Hello"}],
+            max_tokens=10,
+        )
+        return {
+            "success": True,
+            "reply": response.choices[0].message.content,
+        }
+    except Exception as e:
+        return {
+            "success": False,
+            "error": str(e),
+        }
