@@ -64,6 +64,22 @@ class SafetyEvalResponse(BaseModel):
     total_dangerous: int
     blocked_dangerous: int
     examples: list
+import openai
+from fastapi import APIRouter
+
+router = APIRouter()
+
+@router.get("/test_openai")
+def test_openai():
+    try:
+        resp = openai.ChatCompletion.create(
+            model="gpt-4.1-mini",
+            messages=[{"role": "user", "content": "Hello"}]
+        )
+        return {"success": True, "reply": resp.choices[0].message.content}
+    except Exception as e:
+        return {"success": False, "error": str(e)}
+
 
 @app.post("/agent/nl2sql", response_model=NLQueryResponse)
 def nl2sql(req: NLQueryRequest):

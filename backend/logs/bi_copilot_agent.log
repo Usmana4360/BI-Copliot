@@ -2231,3 +2231,14 @@ json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
 2025-12-30 19:04:16,695 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
 2025-12-30 19:04:16,695 [INFO] bi_copilot - Trace 1767103447548 - explanation added
 2025-12-30 19:04:16,695 [INFO] bi_copilot - Trace 1767103447548 - run_agent total_latency_ms=9146.76
+2025-12-31 14:43:54,725 [INFO] bi_copilot - Trace 1767174234725 - ingest_question: string
+2025-12-31 14:43:55,980 [INFO] bi_copilot - Trace 1767174234725 - inspect_schema complete
+2025-12-31 14:43:59,467 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-12-31 14:43:59,499 [INFO] bi_copilot - Trace 1767174234725 - generated 3 SQL candidates
+2025-12-31 14:43:59,499 [INFO] bi_copilot - Trace 1767174234725 - guardrail: 3 candidates (blocked=False)
+2025-12-31 14:43:59,590 [INFO] bi_copilot - Trace 1767174234725 - execute_sql: 3 candidates executed
+2025-12-31 14:43:59,712 [INFO] bi_copilot - Trace 1767174234725 - rank_candidates chosen_sql: SELECT m.machine_id, m.machine_name, ms.status, ms.last_updated, ms.remarks FROM machines m LEFT JOIN machine_status ms ON m.machine_id = ms.machine_id WHERE ms.status = 'Breakdown';
+2025-12-31 14:43:59,738 [INFO] bi_copilot - Trace 1767174234725 - chart suggestion: {'chart_type': 'line', 'x': 'last_updated', 'y': 'machine_id'}
+2025-12-31 14:44:01,848 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-12-31 14:44:01,905 [INFO] bi_copilot - Trace 1767174234725 - explanation added
+2025-12-31 14:44:01,905 [INFO] bi_copilot - Trace 1767174234725 - run_agent total_latency_ms=7328.04
