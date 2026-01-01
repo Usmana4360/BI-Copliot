@@ -2265,3 +2265,69 @@ json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
 2026-01-01 18:38:39,514 [INFO] bi_copilot - Logging initialized
 2026-01-01 18:39:41,252 [INFO] bi_copilot - Logging initialized
 2026-01-01 18:44:26,689 [INFO] bi_copilot - Logging initialized
+2026-01-01 20:09:45,972 [INFO] bi_copilot - Trace 1767280185972 - ingest_question: show me machines of unit 1
+2026-01-01 20:09:46,974 [INFO] bi_copilot - Trace 1767280185972 - inspect_schema complete
+2026-01-01 20:09:58,134 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-01 20:09:58,184 [ERROR] bi_copilot - Failed to parse LLM JSON, falling back to single candidate
+Traceback (most recent call last):
+  File "C:\Users\CIS\Documents\Agentic_AI\Project\bi_copilot_langchain_langgraph\backend\agent\nodes.py", line 81, in generate_candidates
+    data = json.loads(resp.content)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\CIS\anaconda3\envs\bi_agent\Lib\json\__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\CIS\anaconda3\envs\bi_agent\Lib\json\decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\CIS\anaconda3\envs\bi_agent\Lib\json\decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+2026-01-01 20:09:58,215 [INFO] bi_copilot - Trace 1767280185972 - generated 1 SQL candidates
+2026-01-01 20:09:58,215 [INFO] bi_copilot - Trace 1767280185972 - guardrail: 1 candidates (blocked=False)
+2026-01-01 20:09:58,241 [INFO] bi_copilot - Trace 1767280185972 - execute_sql: 1 candidates executed
+2026-01-01 20:09:58,301 [INFO] bi_copilot - Trace 1767280185972 - rank_candidates chosen_sql: ```json
+{
+  "candidates": [
+    "SELECT * FROM machines WHERE unit_id = 1;",
+    "SELECT machine_id, machine_name, machine_type, manufacturer, created_at FROM machines WHERE unit_id = 1;",
+    "SELECT m.machine_id, m.machine_name, m.machine_type, m.manufacturer, u.unit_name FROM machines m JOIN units u ON m.unit_id = u.unit_id WHERE m.unit_id = 1;"
+  ]
+}
+```
+2026-01-01 20:09:58,301 [INFO] bi_copilot - Trace 1767280185972 - chart suggestion: None
+2026-01-01 20:10:00,943 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-01 20:10:00,943 [INFO] bi_copilot - Trace 1767280185972 - explanation added
+2026-01-01 20:10:00,943 [INFO] bi_copilot - Trace 1767280185972 - run_agent total_latency_ms=14988.12
+2026-01-01 20:11:18,857 [INFO] bi_copilot - Trace 1767280278857 - ingest_question: show me machines of unit 1
+2026-01-01 20:11:18,955 [INFO] bi_copilot - Trace 1767280278857 - inspect_schema complete
+2026-01-01 20:11:21,203 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-01 20:11:21,203 [INFO] bi_copilot - Trace 1767280278857 - generated 3 SQL candidates
+2026-01-01 20:11:21,203 [INFO] bi_copilot - Trace 1767280278857 - guardrail: 3 candidates (blocked=False)
+2026-01-01 20:11:21,222 [INFO] bi_copilot - Trace 1767280278857 - execute_sql: 3 candidates executed
+2026-01-01 20:11:21,287 [INFO] bi_copilot - Trace 1767280278857 - rank_candidates chosen_sql: SELECT * FROM machines WHERE unit_id = 1;
+2026-01-01 20:11:21,287 [INFO] bi_copilot - Trace 1767280278857 - chart suggestion: {'chart_type': 'bar', 'x': 'machine_name', 'y': 'machine_id'}
+2026-01-01 20:11:22,269 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-01 20:11:22,269 [INFO] bi_copilot - Trace 1767280278857 - explanation added
+2026-01-01 20:11:22,285 [INFO] bi_copilot - Trace 1767280278857 - run_agent total_latency_ms=3427.99
+2026-01-01 20:12:03,495 [INFO] bi_copilot - Trace 1767280323495 - ingest_question: show me breakdown machines
+2026-01-01 20:12:03,579 [INFO] bi_copilot - Trace 1767280323495 - inspect_schema complete
+2026-01-01 20:12:06,093 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-01 20:12:06,111 [INFO] bi_copilot - Trace 1767280323495 - generated 3 SQL candidates
+2026-01-01 20:12:06,111 [INFO] bi_copilot - Trace 1767280323495 - guardrail: 3 candidates (blocked=False)
+2026-01-01 20:12:06,118 [INFO] bi_copilot - Trace 1767280323495 - execute_sql: 3 candidates executed
+2026-01-01 20:12:06,121 [INFO] bi_copilot - Trace 1767280323495 - rank_candidates chosen_sql: SELECT m.machine_id, m.machine_name, ms.status, ms.last_updated, ms.remarks FROM machines m JOIN machine_status ms ON m.machine_id = ms.machine_id WHERE ms.status = 'Breakdown';
+2026-01-01 20:12:06,123 [INFO] bi_copilot - Trace 1767280323495 - chart suggestion: {'chart_type': 'line', 'x': 'last_updated', 'y': 'machine_id'}
+2026-01-01 20:12:07,502 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-01 20:12:07,502 [INFO] bi_copilot - Trace 1767280323495 - explanation added
+2026-01-01 20:12:07,502 [INFO] bi_copilot - Trace 1767280323495 - run_agent total_latency_ms=4007.67
+2026-01-01 20:12:36,061 [INFO] bi_copilot - Trace 1767280356061 - ingest_question: show me machines status
+2026-01-01 20:12:36,155 [INFO] bi_copilot - Trace 1767280356061 - inspect_schema complete
+2026-01-01 20:12:38,341 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-01 20:12:38,341 [INFO] bi_copilot - Trace 1767280356061 - generated 3 SQL candidates
+2026-01-01 20:12:38,341 [INFO] bi_copilot - Trace 1767280356061 - guardrail: 3 candidates (blocked=False)
+2026-01-01 20:12:38,396 [INFO] bi_copilot - Trace 1767280356061 - execute_sql: 3 candidates executed
+2026-01-01 20:12:38,399 [INFO] bi_copilot - Trace 1767280356061 - rank_candidates chosen_sql: SELECT m.machine_id, m.machine_name, ms.status, ms.last_updated, ms.remarks FROM machines m LEFT JOIN machine_status ms ON m.machine_id = ms.machine_id ORDER BY m.machine_id;
+2026-01-01 20:12:38,412 [INFO] bi_copilot - Trace 1767280356061 - chart suggestion: {'chart_type': 'line', 'x': 'last_updated', 'y': 'machine_id'}
+2026-01-01 20:12:40,827 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-01 20:12:40,827 [INFO] bi_copilot - Trace 1767280356061 - explanation added
+2026-01-01 20:12:40,827 [INFO] bi_copilot - Trace 1767280356061 - run_agent total_latency_ms=4767.14

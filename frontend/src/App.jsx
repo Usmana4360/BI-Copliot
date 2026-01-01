@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const API_BASE = process.env.REACT_APP_API_BASE || 'http://localhost:8000';
+const API_BASE = 'https://bi-copliot-production.up.railway.app';
 
 // Simple SVG Icons
 const Icons = {
