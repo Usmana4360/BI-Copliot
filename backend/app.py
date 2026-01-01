@@ -140,13 +140,21 @@ def test_openai():
             "error": str(e),
         }
 
-from backend.config import DATABASE_URL
 
-@app.get("/debug/db")
-def debug_db():
+from sqlalchemy import text
+from sqlalchemy import create_engine, inspect
+from backend.config import DATABASE_URL
+@app.get("/debug/tables")
+def debug_tables():
+    engine = create_engine(DATABASE_URL)
+    inspector = inspect(engine)
     return {
-        "exists": DATABASE_URL is not None,
-        "starts_with": DATABASE_URL[:20] if DATABASE_URL else None
+        "tables": inspector.get_table_names(schema="public")
     }
 
-
+@app.get("/debug/sql")
+def debug_sql():
+    engine = create_engine(DATABASE_URL)
+    with engine.connect() as conn:
+        result = conn.execute(text("SELECT * FROM machines LIMIT 5"))
+        return [dict(row._mapping) for row in result]
