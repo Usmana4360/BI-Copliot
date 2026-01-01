@@ -144,17 +144,26 @@ def test_openai():
 from sqlalchemy import text
 from sqlalchemy import create_engine, inspect
 from backend.config import DATABASE_URL
+from sqlalchemy import inspect
+from backend.utils.db import get_engine, run_sql
+
 @app.get("/debug/tables")
 def debug_tables():
-    engine = create_engine(DATABASE_URL)
-    inspector = inspect(engine)
-    return {
-        "tables": inspector.get_table_names(schema="public")
-    }
+    try:
+        engine = get_engine()
+        inspector = inspect(engine)
+        tables = inspector.get_table_names(schema="public")
+        return {"status": "ok", "tables": tables}
+    except Exception as e:
+        return {"status": "error", "error": str(e)}
+
+
 
 @app.get("/debug/sql")
 def debug_sql():
-    engine = create_engine(DATABASE_URL)
-    with engine.connect() as conn:
-        result = conn.execute(text("SELECT * FROM machines LIMIT 5"))
-        return [dict(row._mapping) for row in result]
+    try:
+        engine = get_engine()
+        cols, rows = run_sql(engine, "SELECT 1")
+        return {"status": "ok", "rows": rows}
+    except Exception as e:
+        return {"status": "error", "error": str(e)}
