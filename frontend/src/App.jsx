@@ -292,18 +292,7 @@ const BICopilot = () => {
           <p className="text-gray-600">Natural language to SQL with LangChain + LangGraph + OpenAI</p>
         </div>
 
-        {/* API Connection Status */}
-        <div className="mb-6 p-4 bg-blue-50 border border-blue-200 rounded-lg flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <Icons.Activity />
-            <span className="text-sm font-semibold text-gray-700">Backend:</span>
-            <code className="text-sm text-blue-800">{API_BASE}</code>
-          </div>
-          <div className="flex items-center gap-2">
-            <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-            <span className="text-xs text-gray-600">Connected</span>
-          </div>
-        </div>
+        
 
         {/* Error Display */}
         {error && (
@@ -426,18 +415,7 @@ const BICopilot = () => {
             {/* Results Tab */}
             {activeTab === 'results' && response && (
               <div className="p-8">
-                {/* SQL Display */}
-                <div className="mb-6">
-                  <div className="flex items-center gap-2 mb-3">
-                    <div className="text-blue-600">
-                      <Icons.Database />
-                    </div>
-                    <h3 className="text-lg font-bold text-gray-800">Generated SQL</h3>
-                  </div>
-                  <div className="bg-gray-900 rounded-lg p-4 overflow-x-auto">
-                    <pre className="text-sm text-green-400 font-mono">{response.chosen_sql}</pre>
-                  </div>
-                </div>
+                
 
                 {/* Performance Metrics */}
                 <div className="grid grid-cols-3 gap-4 mb-6">
