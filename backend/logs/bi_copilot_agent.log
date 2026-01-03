@@ -2331,3 +2331,15 @@ json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
 2026-01-01 20:12:40,827 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
 2026-01-01 20:12:40,827 [INFO] bi_copilot - Trace 1767280356061 - explanation added
 2026-01-01 20:12:40,827 [INFO] bi_copilot - Trace 1767280356061 - run_agent total_latency_ms=4767.14
+2026-01-03 09:37:57,726 [INFO] bi_copilot - Logging initialized
+2026-01-03 09:43:32,181 [INFO] bi_copilot - Trace 1767415412181 - ingest_question: show me power usage
+2026-01-03 09:43:34,676 [INFO] bi_copilot - Trace 1767415412181 - inspect_schema complete
+2026-01-03 09:43:40,575 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-03 09:43:40,840 [INFO] bi_copilot - Trace 1767415412181 - generated 3 SQL candidates
+2026-01-03 09:43:40,880 [INFO] bi_copilot - Trace 1767415412181 - guardrail: 3 candidates (blocked=False)
+2026-01-03 09:43:40,941 [INFO] bi_copilot - Trace 1767415412181 - execute_sql: 3 candidates executed
+2026-01-03 09:43:40,985 [INFO] bi_copilot - Trace 1767415412181 - rank_candidates chosen_sql: SELECT machine_id, machine_name, machine_type FROM machines WHERE machine_type ILIKE '%power%' OR machine_name ILIKE '%power%';
+2026-01-03 09:43:40,987 [INFO] bi_copilot - Trace 1767415412181 - chart suggestion: None
+2026-01-03 09:43:43,208 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-03 09:43:43,208 [INFO] bi_copilot - Trace 1767415412181 - explanation added
+2026-01-03 09:43:43,225 [INFO] bi_copilot - Trace 1767415412181 - run_agent total_latency_ms=11059.33

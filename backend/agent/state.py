@@ -22,9 +22,14 @@ class AgentState(TypedDict, total=False):
     executed_results: List[SQLResult]
     chosen_sql: Optional[str]
     chosen_df: Optional[pd.DataFrame]
-    chart_spec: Optional[Dict[str, str]]
+    chart_spec: Optional[Dict[str, Any]]
     safety_flags: SafetyFlags
     tft_ms: float
     tfr_ms: float
     trace_id: str
     metadata: Dict[str, Any]
+    
+    # Self-correction fields
+    retry_count: int
+    last_error: Optional[str]
+    max_retries: int

@@ -1,4 +1,31 @@
 import React, { useState } from 'react';
+import { Line, Bar, Pie } from 'react-chartjs-2';
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  BarElement,
+  ArcElement,
+  Title,
+  Tooltip,
+  Legend,
+  Filler,
+} from 'chart.js';
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  BarElement,
+  ArcElement,
+  Title,
+  Tooltip,
+  Legend,
+  Filler
+);
 
 const API_BASE = 'https://bi-copliot-production.up.railway.app';
 
@@ -65,6 +92,90 @@ const Icons = {
       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
     </svg>
   ),
+};
+
+// 📊 DataChart Component - Renders Chart.js visualizations
+const DataChart = ({ chartSpec }) => {
+  if (!chartSpec || !chartSpec.chart_type) return null;
+
+  const { chart_type, labels, datasets } = chartSpec;
+
+  const chartData = {
+    labels,
+    datasets,
+  };
+
+  const options = {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        position: 'top',
+      },
+      title: {
+        display: false,
+      },
+    },
+    scales: chart_type !== 'pie' ? {
+      y: {
+        beginAtZero: true,
+      },
+    } : undefined,
+  };
+
+  const areaOptions = {
+    ...options,
+    elements: {
+      line: {
+        tension: 0.4,
+      },
+    },
+    plugins: {
+      ...options.plugins,
+      filler: {
+        propagate: true,
+      },
+    },
+  };
+
+  // Add fill configuration for area charts
+  if (chart_type === 'area') {
+    chartData.datasets = chartData.datasets.map(ds => ({
+      ...ds,
+      fill: true,
+    }));
+  }
+
+  const renderChart = () => {
+    switch (chart_type) {
+      case 'bar':
+        return <Bar data={chartData} options={options} />;
+      case 'line':
+        return <Line data={chartData} options={options} />;
+      case 'area':
+        return <Line data={chartData} options={areaOptions} />;
+      case 'pie':
+        return <Pie data={chartData} options={options} />;
+      default:
+        return <div className="text-gray-500">Unknown chart type: {chart_type}</div>;
+    }
+  };
+
+  return (
+    <div className="bg-white rounded-lg p-6 border border-gray-200">
+      <div className="flex items-center gap-2 mb-4">
+        <div className="text-purple-600">
+          <Icons.BarChart />
+        </div>
+        <h3 className="text-lg font-bold text-gray-800">
+          {chart_type.charAt(0).toUpperCase() + chart_type.slice(1)} Chart
+        </h3>
+      </div>
+      <div style={{ height: '400px' }}>
+        {renderChart()}
+      </div>
+    </div>
+  );
 };
 
 const BICopilot = () => {
@@ -174,9 +285,7 @@ const BICopilot = () => {
         <div className="text-center mb-8">
           <div className="flex items-center justify-center gap-3 mb-4">
             <div className="w-12 h-12 text-blue-600">
-              <svg className="w-full h-full" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" />
-              </svg>
+              <Icons.TrendingUp />
             </div>
             <h1 className="text-4xl font-bold text-gray-800">BI Copilot Agent</h1>
           </div>
@@ -376,26 +485,10 @@ const BICopilot = () => {
                   </div>
                 </div>
 
-                {/* Chart Section */}
-                {response.chart && (
-                  <div className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-lg p-6 border border-purple-200">
-                    <div className="flex items-center gap-2 mb-4">
-                      <div className="text-purple-600">
-                        <Icons.BarChart />
-                      </div>
-                      <h3 className="text-lg font-bold text-gray-800">Suggested Visualization</h3>
-                    </div>
-                    <div className="bg-white rounded-lg p-4">
-                      <p className="text-sm text-gray-600">
-                        <span className="font-semibold">Chart Type:</span> {response.chart.chart_type}
-                      </p>
-                      <p className="text-sm text-gray-600">
-                        <span className="font-semibold">X-Axis:</span> {response.chart.x}
-                      </p>
-                      <p className="text-sm text-gray-600">
-                        <span className="font-semibold">Y-Axis:</span> {response.chart.y}
-                      </p>
-                    </div>
+                {/* 📊 Enhanced Chart Rendering */}
+                {response.chart_spec && (
+                  <div className="mb-6">
+                    <DataChart chartSpec={response.chart_spec} />
                   </div>
                 )}
               </div>
@@ -435,7 +528,7 @@ const BICopilot = () => {
 
         {/* Footer */}
         <div className="mt-8 text-center text-sm text-gray-500">
-          <p>Powered by LangChain + LangGraph + OpenAI • Built with React</p>
+          <p>Powered by LangChain + LangGraph + OpenAI • Built with React & Chart.js</p>
         </div>
       </div>
     </div>
