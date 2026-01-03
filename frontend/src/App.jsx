@@ -27,7 +27,7 @@ ChartJS.register(
   Filler
 );
 
-const API_BASE = 'https://bi-copliot-production.up.railway.app';
+const API_BASE = 'http://localhost:8001';
 
 // Simple SVG Icons
 const Icons = {
@@ -287,7 +287,7 @@ const BICopilot = () => {
             <div className="w-12 h-12 text-blue-600">
               <Icons.TrendingUp />
             </div>
-            <h1 className="text-4xl font-bold text-gray-800">Texo AI Copilot Agent</h1>
+            <h1 className="text-4xl font-bold text-gray-800">BI Copilot Agent</h1>
           </div>
           <p className="text-gray-600">Natural language to SQL with LangChain + LangGraph + OpenAI</p>
         </div>
@@ -476,7 +476,13 @@ const BICopilot = () => {
                     <p className="text-gray-700 italic">{response.explanation}</p>
                   </div>
                 )}
-
+                {response.chart && (
+                  // ✅ Removed fixed height here. Let the component inside determine the height.
+                  <div className="mb-8 bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                    <h3 className="text-lg font-bold text-gray-800 mb-4">Data Visualization</h3>
+                    <DataChart chartSpec={response.chart} />
+                  </div>
+                )}
                 {/* Data Table */}
                 <div className="mb-6">
                   <h3 className="text-lg font-bold text-gray-800 mb-3">Query Results</h3>
