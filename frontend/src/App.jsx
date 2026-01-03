@@ -287,7 +287,7 @@ const BICopilot = () => {
             <div className="w-12 h-12 text-blue-600">
               <Icons.TrendingUp />
             </div>
-            <h1 className="text-4xl font-bold text-gray-800">BI Copilot Agent</h1>
+            <h1 className="text-4xl font-bold text-gray-800">Texo AI Copilot Agent</h1>
           </div>
           <p className="text-gray-600">Natural language to SQL with LangChain + LangGraph + OpenAI</p>
         </div>
