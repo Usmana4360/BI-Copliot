@@ -2343,3 +2343,2038 @@ json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
 2026-01-03 09:43:43,208 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
 2026-01-03 09:43:43,208 [INFO] bi_copilot - Trace 1767415412181 - explanation added
 2026-01-03 09:43:43,225 [INFO] bi_copilot - Trace 1767415412181 - run_agent total_latency_ms=11059.33
+2026-03-06 09:46:43,061 [INFO] bi_copilot - Logging initialized
+2026-03-06 09:52:19,585 [INFO] bi_copilot - Logging initialized
+2026-03-06 10:12:56,350 [INFO] bi_copilot - Trace 1772773976350 - ingest_question: string
+2026-03-06 10:21:47,652 [INFO] bi_copilot - Logging initialized
+2026-03-06 10:22:09,246 [INFO] bi_copilot - Trace 1772774529246 - ingest_question: show me data of machines
+2026-03-06 10:22:17,426 [INFO] bi_copilot - Trace 1772774529246 - inspect_schema complete
+2026-03-06 10:22:22,140 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-06 10:22:22,175 [ERROR] bi_copilot - Failed to parse LLM JSON, falling back to single candidate
+Traceback (most recent call last):
+  File "C:\Users\lenovo\Documents\Project\AI_copilot\BI-Copliot\backend\agent\nodes.py", line 99, in generate_candidates
+    data = json.loads(resp.content)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\json\__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\json\decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\json\decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+2026-03-06 10:22:22,187 [INFO] bi_copilot - Trace 1772774529246 - generated 1 SQL candidates (retry=0)
+2026-03-06 10:22:22,188 [INFO] bi_copilot - Trace 1772774529246 - guardrail: 1 candidates (blocked=False)
+2026-03-06 10:22:22,605 [INFO] bi_copilot - Trace 1772774529246 - execute_sql: 1 candidates executed, any_success=False
+2026-03-06 10:22:25,539 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-06 10:22:25,604 [INFO] bi_copilot - Trace 1772774529246 - generated 3 SQL candidates (retry=1)
+2026-03-06 10:22:25,604 [INFO] bi_copilot - Trace 1772774529246 - guardrail: 3 candidates (blocked=False)
+2026-03-06 10:22:26,920 [INFO] bi_copilot - Trace 1772774529246 - execute_sql: 3 candidates executed, any_success=True
+2026-03-06 10:22:26,936 [INFO] bi_copilot - Trace 1772774529246 - rank_candidates chosen_sql: SELECT machine_name AS machine_label, COUNT(*) AS total_machines FROM machines GROUP BY machine_name ORDER BY total_machines DESC;
+2026-03-06 10:22:26,954 [INFO] bi_copilot - Trace 1772774529246 - chart suggestion: bar
+2026-03-06 10:22:30,086 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-06 10:22:30,086 [INFO] bi_copilot - Trace 1772774529246 - explanation added
+2026-03-06 10:22:30,086 [INFO] bi_copilot - Trace 1772774529246 - run_agent total_latency_ms=20839.57
+2026-03-06 12:27:31,645 [INFO] bi_copilot - Trace 1772782051645 - ingest_question: please show me daily production machine wise
+
+2026-03-06 12:27:47,355 [INFO] bi_copilot - Trace 1772782051645 - inspect_schema complete
+2026-03-06 12:27:51,200 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-06 12:27:51,203 [INFO] bi_copilot - Trace 1772782051645 - generated 2 SQL candidates (retry=0)
+2026-03-06 12:27:51,203 [INFO] bi_copilot - Trace 1772782051645 - guardrail: 2 candidates (blocked=False)
+2026-03-06 12:27:53,284 [INFO] bi_copilot - Trace 1772782051645 - execute_sql: 2 candidates executed, any_success=True
+2026-03-06 12:27:53,285 [INFO] bi_copilot - Trace 1772782051645 - rank_candidates chosen_sql: SELECT production_date AS date, machine_id AS machine, SUM(units_produced) AS total_units_produced FROM machine_production_daily GROUP BY production_date, machine_id ORDER BY production_date, machine_id;
+2026-03-06 12:27:53,311 [INFO] bi_copilot - Trace 1772782051645 - chart suggestion: area
+2026-03-06 12:27:56,358 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-06 12:27:56,358 [INFO] bi_copilot - Trace 1772782051645 - explanation added
+2026-03-06 12:27:56,358 [INFO] bi_copilot - Trace 1772782051645 - run_agent total_latency_ms=24712.71
+2026-03-06 14:11:13,169 [INFO] bi_copilot - Logging initialized
+2026-03-06 14:11:34,768 [INFO] bi_copilot - Logging initialized
+2026-03-06 14:19:45,296 [INFO] bi_copilot - Trace 1772788785296 - ingest_question: please show me compressor oil temperature
+2026-03-06 14:19:56,844 [INFO] bi_copilot - Trace 1772788785296 - inspect_schema complete
+2026-03-06 14:20:02,073 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-06 14:20:02,101 [INFO] bi_copilot - Trace 1772788785296 - generated 2 SQL candidates (retry=0)
+2026-03-06 14:20:02,105 [INFO] bi_copilot - Trace 1772788785296 - guardrail: 2 candidates (blocked=False)
+2026-03-06 14:20:03,175 [INFO] bi_copilot - Trace 1772788785296 - execute_sql: 2 candidates executed, any_success=True
+2026-03-06 14:20:03,194 [INFO] bi_copilot - Trace 1772788785296 - rank_candidates chosen_sql: SELECT report_date AS date, AVG(oil_temperature) AS average_oil_temperature FROM air_compressor_reports GROUP BY report_date ORDER BY report_date;
+2026-03-06 14:20:03,216 [INFO] bi_copilot - Trace 1772788785296 - chart suggestion: line
+2026-03-06 14:20:06,779 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-06 14:20:06,783 [INFO] bi_copilot - Trace 1772788785296 - explanation added
+2026-03-06 14:20:06,783 [INFO] bi_copilot - Trace 1772788785296 - run_agent total_latency_ms=21515.73
+2026-03-07 09:42:41,823 [INFO] bi_copilot - Trace 1772858561823 - ingest_question: please show me today total loading time of compressor
+2026-03-07 09:42:50,284 [INFO] bi_copilot - Trace 1772858561823 - inspect_schema complete
+2026-03-07 09:42:52,783 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-07 09:42:52,783 [ERROR] bi_copilot - Failed to parse LLM JSON, falling back to single candidate
+Traceback (most recent call last):
+  File "C:\Users\lenovo\Documents\Project\AI_copilot\BI-Copliot\backend\agent\nodes.py", line 99, in generate_candidates
+    data = json.loads(resp.content)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\json\__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\json\decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\json\decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+2026-03-07 09:42:52,800 [INFO] bi_copilot - Trace 1772858561823 - generated 1 SQL candidates (retry=0)
+2026-03-07 09:42:52,800 [INFO] bi_copilot - Trace 1772858561823 - guardrail: 1 candidates (blocked=False)
+2026-03-07 09:42:53,200 [INFO] bi_copilot - Trace 1772858561823 - execute_sql: 1 candidates executed, any_success=False
+2026-03-07 09:42:56,148 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-07 09:42:56,152 [INFO] bi_copilot - Trace 1772858561823 - generated 1 SQL candidates (retry=1)
+2026-03-07 09:42:56,152 [INFO] bi_copilot - Trace 1772858561823 - guardrail: 1 candidates (blocked=False)
+2026-03-07 09:42:56,615 [INFO] bi_copilot - Trace 1772858561823 - execute_sql: 1 candidates executed, any_success=True
+2026-03-07 09:42:56,615 [INFO] bi_copilot - Trace 1772858561823 - rank_candidates chosen_sql: SELECT report_date AS date, SUM(CAST(on_load_total_time AS INTEGER)) AS total_loading_time FROM air_compressor_reports WHERE report_date = CURRENT_DATE GROUP BY report_date;
+2026-03-07 09:42:56,627 [INFO] bi_copilot - Trace 1772858561823 - chart suggestion: None
+2026-03-07 09:42:59,084 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-07 09:42:59,094 [INFO] bi_copilot - Trace 1772858561823 - explanation added
+2026-03-07 09:42:59,097 [INFO] bi_copilot - Trace 1772858561823 - run_agent total_latency_ms=17273.95
+2026-03-07 10:02:12,303 [INFO] bi_copilot - Trace 1772859732303 - ingest_question: please show me today compressors report
+2026-03-07 10:02:44,386 [INFO] bi_copilot - Trace 1772859732303 - inspect_schema complete
+2026-03-07 10:02:47,468 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-07 10:02:47,468 [ERROR] bi_copilot - Failed to parse LLM JSON, falling back to single candidate
+Traceback (most recent call last):
+  File "C:\Users\lenovo\Documents\Project\AI_copilot\BI-Copliot\backend\agent\nodes.py", line 99, in generate_candidates
+    data = json.loads(resp.content)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\json\__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\json\decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\json\decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+2026-03-07 10:02:47,468 [INFO] bi_copilot - Trace 1772859732303 - generated 1 SQL candidates (retry=0)
+2026-03-07 10:02:47,478 [INFO] bi_copilot - Trace 1772859732303 - guardrail: 1 candidates (blocked=False)
+2026-03-07 10:02:48,400 [INFO] bi_copilot - Trace 1772859732303 - execute_sql: 1 candidates executed, any_success=False
+2026-03-07 10:02:52,485 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-07 10:02:52,485 [INFO] bi_copilot - Trace 1772859732303 - generated 3 SQL candidates (retry=1)
+2026-03-07 10:02:52,485 [INFO] bi_copilot - Trace 1772859732303 - guardrail: 3 candidates (blocked=False)
+2026-03-07 10:02:54,415 [INFO] bi_copilot - Trace 1772859732303 - execute_sql: 3 candidates executed, any_success=True
+2026-03-07 10:02:54,415 [INFO] bi_copilot - Trace 1772859732303 - rank_candidates chosen_sql: SELECT compressor_code, operational_status, oil_temperature, pressure, motor_temperature FROM air_compressor_reports WHERE report_date = CURRENT_DATE;
+2026-03-07 10:02:54,440 [INFO] bi_copilot - Trace 1772859732303 - chart suggestion: bar
+2026-03-07 10:02:56,797 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-07 10:02:56,809 [INFO] bi_copilot - Trace 1772859732303 - explanation added
+2026-03-07 10:02:56,813 [INFO] bi_copilot - Trace 1772859732303 - run_agent total_latency_ms=44510.84
+2026-03-07 10:08:42,861 [INFO] bi_copilot - Logging initialized
+2026-03-07 10:11:24,818 [INFO] bi_copilot - Logging initialized
+2026-03-07 10:11:53,587 [INFO] bi_copilot - Trace 1772860313587 - ingest_question: show me compressors temperature
+2026-03-07 10:12:04,080 [INFO] bi_copilot - Trace 1772860313587 - inspect_schema complete
+2026-03-07 10:12:08,643 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-07 10:12:08,686 [INFO] bi_copilot - Trace 1772860313587 - generated 2 SQL candidates (retry=0)
+2026-03-07 10:12:08,694 [INFO] bi_copilot - Trace 1772860313587 - guardrail: 2 candidates (blocked=False)
+2026-03-07 10:12:09,562 [INFO] bi_copilot - Trace 1772860313587 - execute_sql: 2 candidates executed, any_success=True
+2026-03-07 10:12:09,568 [INFO] bi_copilot - Trace 1772860313587 - rank_candidates chosen_sql: SELECT report_date AS date, AVG(oil_temperature) AS average_oil_temperature, AVG(motor_temperature) AS average_motor_temperature FROM air_compressor_reports GROUP BY report_date ORDER BY report_date;
+2026-03-07 10:12:09,580 [INFO] bi_copilot - Trace 1772860313587 - chart suggestion: area
+2026-03-07 10:12:11,609 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-07 10:12:11,610 [INFO] bi_copilot - Trace 1772860313587 - explanation added
+2026-03-07 10:12:11,610 [INFO] bi_copilot - Trace 1772860313587 - run_agent total_latency_ms=18038.02
+2026-03-07 10:12:23,573 [INFO] bi_copilot - Trace 1772860343573 - ingest_question: please show me compressor readings
+2026-03-07 10:12:31,566 [INFO] bi_copilot - Trace 1772860343573 - inspect_schema complete
+2026-03-07 10:12:35,467 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-07 10:12:35,477 [INFO] bi_copilot - Trace 1772860343573 - generated 3 SQL candidates (retry=0)
+2026-03-07 10:12:35,481 [INFO] bi_copilot - Trace 1772860343573 - guardrail: 3 candidates (blocked=False)
+2026-03-07 10:12:36,914 [INFO] bi_copilot - Trace 1772860343573 - execute_sql: 3 candidates executed, any_success=True
+2026-03-07 10:12:36,916 [INFO] bi_copilot - Trace 1772860343573 - rank_candidates chosen_sql: SELECT report_date AS reading_date, compressor_code, oil_temperature, pressure, motor_temperature FROM air_compressor_reports ORDER BY report_date DESC;
+2026-03-07 10:12:36,931 [INFO] bi_copilot - Trace 1772860343573 - chart suggestion: area
+2026-03-07 10:12:39,548 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-07 10:12:39,559 [INFO] bi_copilot - Trace 1772860343573 - explanation added
+2026-03-07 10:12:39,564 [INFO] bi_copilot - Trace 1772860343573 - run_agent total_latency_ms=15990.97
+2026-03-07 10:23:19,963 [INFO] bi_copilot - Logging initialized
+2026-03-07 10:28:29,963 [INFO] bi_copilot - Logging initialized
+2026-03-07 10:40:52,229 [INFO] bi_copilot - Logging initialized
+2026-03-07 11:22:58,613 [INFO] bi_copilot - Trace 1772864578613 - ingest_question: show me today compressor loading hours
+2026-03-07 11:23:08,559 [INFO] bi_copilot - Trace 1772864578613 - inspect_schema complete
+2026-03-07 11:23:12,389 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-07 11:23:12,406 [INFO] bi_copilot - Trace 1772864578613 - generated 1 SQL candidates (retry=0)
+2026-03-07 11:23:12,406 [INFO] bi_copilot - Trace 1772864578613 - guardrail: 1 candidates (blocked=False)
+2026-03-07 11:23:12,889 [INFO] bi_copilot - Trace 1772864578613 - execute_sql: 1 candidates executed, any_success=True
+2026-03-07 11:23:12,910 [INFO] bi_copilot - Trace 1772864578613 - rank_candidates chosen_sql: SELECT compressor_code, SUM(CAST(on_load_total_time AS INTEGER)) AS total_loading_hours FROM air_compressor_reports WHERE report_date = CURRENT_DATE GROUP BY compressor_code ORDER BY total_loading_hours DESC;
+2026-03-07 11:23:12,938 [INFO] bi_copilot - Trace 1772864578613 - chart suggestion: line
+2026-03-07 11:23:15,488 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-07 11:23:15,504 [INFO] bi_copilot - Trace 1772864578613 - explanation added
+2026-03-07 11:23:15,504 [INFO] bi_copilot - Trace 1772864578613 - run_agent total_latency_ms=16907.58
+2026-03-07 13:08:00,184 [INFO] bi_copilot - Logging initialized
+2026-03-07 13:08:00,192 [INFO] bi_copilot - Startup: warming schema cache …
+2026-03-07 13:08:00,192 [INFO] bi_copilot - Schema cache miss — fetching schema from database …
+2026-03-07 13:08:10,674 [INFO] bi_copilot - Schema cached successfully (5699 chars).
+2026-03-07 13:08:10,674 [INFO] bi_copilot - Startup: schema cache ready.
+2026-03-07 13:08:51,737 [INFO] bi_copilot - Shutdown: cleaning up.
+2026-03-07 13:08:54,833 [INFO] bi_copilot - Logging initialized
+2026-03-07 13:08:54,841 [INFO] bi_copilot - Startup: warming schema cache …
+2026-03-07 13:08:54,841 [INFO] bi_copilot - Schema cache miss — fetching schema from database …
+2026-03-07 13:09:06,769 [INFO] bi_copilot - Schema cached successfully (5699 chars).
+2026-03-07 13:09:06,769 [INFO] bi_copilot - Startup: schema cache ready.
+2026-03-07 13:10:13,487 [INFO] bi_copilot - Trace 1772871013485 — ingest_question: please show me today compressor data
+2026-03-07 13:10:17,230 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-07 13:10:17,262 [INFO] bi_copilot - Trace 1772871013485 — fast_path_sql generated query in 2442.3 ms
+2026-03-07 13:10:17,270 [INFO] bi_copilot - Trace 1772871013485 — guardrail: 1 candidate(s), blocked=False
+2026-03-07 13:10:18,035 [INFO] bi_copilot - Trace 1772871013485 — SQL executed in 765.4 ms, 1 rows returned.
+2026-03-07 13:10:18,090 [INFO] bi_copilot - Trace 1772871013485 — chart: area
+2026-03-07 13:10:19,370 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-07 13:10:19,384 [INFO] bi_copilot - Trace 1772871013485 — explanation added.
+2026-03-07 13:10:19,384 [INFO] bi_copilot - Trace 1772871013485 — run_agent complete. total_latency_ms=5911.90
+2026-03-07 13:10:55,535 [INFO] bi_copilot - Trace 1772871055535 — ingest_question: please show me daily power consumtion machine wise
+2026-03-07 13:10:57,767 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-07 13:10:57,778 [INFO] bi_copilot - Trace 1772871055535 — fast_path_sql generated query in 2243.3 ms
+2026-03-07 13:10:57,783 [INFO] bi_copilot - Trace 1772871055535 — guardrail: 1 candidate(s), blocked=False
+2026-03-07 13:10:58,584 [INFO] bi_copilot - Trace 1772871055535 — SQL executed in 799.8 ms, 9 rows returned.
+2026-03-07 13:10:58,611 [INFO] bi_copilot - Trace 1772871055535 — chart: pie
+2026-03-07 13:11:00,632 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-07 13:11:00,641 [INFO] bi_copilot - Trace 1772871055535 — explanation added.
+2026-03-07 13:11:00,645 [INFO] bi_copilot - Trace 1772871055535 — run_agent complete. total_latency_ms=5118.03
+2026-03-10 15:55:30,564 [INFO] bi_copilot - Trace 1773140130564 — ingest_question: please show me unit 1 machines
+2026-03-10 15:55:33,246 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-10 15:55:33,262 [INFO] bi_copilot - Trace 1773140130564 — fast_path_sql generated query in 2689.2 ms
+2026-03-10 15:55:33,262 [INFO] bi_copilot - Trace 1773140130564 — guardrail: 1 candidate(s), blocked=False
+2026-03-10 15:55:34,893 [ERROR] bi_copilot - Trace 1773140130564 — SQL execution error: Database error: (psycopg2.errors.UndefinedColumn) column "machine_type" does not exist
+LINE 1: SELECT machine_id, machine_name, machine_type FROM machines ...
+                                         ^
+HINT:  Perhaps you meant to reference the column "machines.machine_name".
+
+[SQL: SELECT machine_id, machine_name, machine_type FROM machines WHERE unit_id = 1;]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2026-03-10 15:55:36,738 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-10 15:55:36,738 [INFO] bi_copilot - Trace 1773140130564 — explanation added.
+2026-03-10 15:55:36,738 [INFO] bi_copilot - Trace 1773140130564 — run_agent complete. total_latency_ms=6173.26
+2026-03-10 16:03:28,023 [INFO] bi_copilot - Trace 1773140608023 — ingest_question: show me unit 2 machines 
+2026-03-10 16:03:29,447 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-10 16:03:29,453 [INFO] bi_copilot - Trace 1773140608023 — fast_path_sql generated query in 1428.0 ms
+2026-03-10 16:03:29,454 [INFO] bi_copilot - Trace 1773140608023 — guardrail: 1 candidate(s), blocked=False
+2026-03-10 16:03:30,155 [ERROR] bi_copilot - Trace 1773140608023 — SQL execution error: Database error: (psycopg2.errors.UndefinedColumn) column "machine_type" does not exist
+LINE 1: SELECT machine_id, machine_name, machine_type FROM machines ...
+                                         ^
+HINT:  Perhaps you meant to reference the column "machines.machine_name".
+
+[SQL: SELECT machine_id, machine_name, machine_type FROM machines WHERE unit_id = 2;]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2026-03-10 16:03:32,087 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-10 16:03:32,102 [INFO] bi_copilot - Trace 1773140608023 — explanation added.
+2026-03-10 16:03:32,105 [INFO] bi_copilot - Trace 1773140608023 — run_agent complete. total_latency_ms=4084.48
+2026-03-10 16:03:52,125 [INFO] bi_copilot - Trace 1773140632125 — ingest_question: show me power consumption machine wise
+2026-03-10 16:03:54,023 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-10 16:03:54,024 [INFO] bi_copilot - Trace 1773140632125 — fast_path_sql generated query in 1896.5 ms
+2026-03-10 16:03:54,024 [INFO] bi_copilot - Trace 1773140632125 — guardrail: 1 candidate(s), blocked=False
+2026-03-10 16:03:54,542 [INFO] bi_copilot - Trace 1773140632125 — SQL executed in 517.5 ms, 9 rows returned.
+2026-03-10 16:03:54,569 [INFO] bi_copilot - Trace 1773140632125 — chart: area
+2026-03-10 16:03:56,786 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-10 16:03:56,791 [INFO] bi_copilot - Trace 1773140632125 — explanation added.
+2026-03-10 16:03:56,793 [INFO] bi_copilot - Trace 1773140632125 — run_agent complete. total_latency_ms=4669.11
+2026-03-10 16:04:19,778 [INFO] bi_copilot - Trace 1773140659778 — ingest_question: show me production machine wise
+2026-03-10 16:04:22,577 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-10 16:04:22,590 [INFO] bi_copilot - Trace 1773140659778 — fast_path_sql generated query in 2808.4 ms
+2026-03-10 16:04:22,593 [INFO] bi_copilot - Trace 1773140659778 — guardrail: 1 candidate(s), blocked=False
+2026-03-10 16:04:23,212 [INFO] bi_copilot - Trace 1773140659778 — SQL executed in 619.0 ms, 5 rows returned.
+2026-03-10 16:04:23,220 [INFO] bi_copilot - Trace 1773140659778 — chart: bar
+2026-03-10 16:04:24,087 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-10 16:04:24,087 [INFO] bi_copilot - Trace 1773140659778 — explanation added.
+2026-03-10 16:04:24,087 [INFO] bi_copilot - Trace 1773140659778 — run_agent complete. total_latency_ms=4311.45
+2026-03-10 16:25:46,240 [INFO] bi_copilot - Trace 1773141946240 — ingest_question: please show me unit 1 machines
+2026-03-10 16:25:48,751 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-10 16:25:48,751 [INFO] bi_copilot - Trace 1773141946240 — fast_path_sql generated query in 2505.6 ms
+2026-03-10 16:25:48,751 [INFO] bi_copilot - Trace 1773141946240 — guardrail: 1 candidate(s), blocked=False
+2026-03-10 16:25:50,781 [ERROR] bi_copilot - Trace 1773141946240 — SQL execution error: Database error: (psycopg2.errors.UndefinedColumn) column "machine_id" does not exist
+LINE 1: SELECT machine_id, machine_name, machine_type FROM machines ...
+               ^
+HINT:  Perhaps you meant to reference the column "machines.machine_code".
+
+[SQL: SELECT machine_id, machine_name, machine_type FROM machines WHERE unit_id = 1;]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2026-03-10 16:25:52,232 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-10 16:25:52,233 [INFO] bi_copilot - Trace 1773141946240 — explanation added.
+2026-03-10 16:25:52,233 [INFO] bi_copilot - Trace 1773141946240 — run_agent complete. total_latency_ms=5993.97
+2026-03-10 16:27:50,209 [INFO] bi_copilot - Trace 1773142070209 — ingest_question: please show me unit 1 active machines
+2026-03-10 16:27:52,722 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-10 16:27:52,722 [INFO] bi_copilot - Trace 1773142070209 — fast_path_sql generated query in 2513.8 ms
+2026-03-10 16:27:52,731 [INFO] bi_copilot - Trace 1773142070209 — guardrail: 1 candidate(s), blocked=False
+2026-03-10 16:27:53,332 [ERROR] bi_copilot - Trace 1773142070209 — SQL execution error: Database error: (psycopg2.errors.UndefinedColumn) column "machine_id" does not exist
+LINE 1: SELECT machine_id, machine_name FROM machines WHERE unit_id ...
+               ^
+HINT:  Perhaps you meant to reference the column "machines.machine_code".
+
+[SQL: SELECT machine_id, machine_name FROM machines WHERE unit_id = 1 AND machine_id IN (SELECT machine_id FROM machine_status WHERE status = 'Running');]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2026-03-10 16:27:54,655 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-10 16:27:54,659 [INFO] bi_copilot - Trace 1773142070209 — explanation added.
+2026-03-10 16:27:54,667 [INFO] bi_copilot - Trace 1773142070209 — run_agent complete. total_latency_ms=4458.70
+2026-03-10 16:29:40,027 [INFO] bi_copilot - Trace 1773142180027 — ingest_question: please show me unit 1 active machines and please check database schema and follw
+2026-03-10 16:29:41,763 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-10 16:29:41,768 [INFO] bi_copilot - Trace 1773142180027 — fast_path_sql generated query in 1741.6 ms
+2026-03-10 16:29:41,770 [INFO] bi_copilot - Trace 1773142180027 — guardrail: 1 candidate(s), blocked=False
+2026-03-10 16:29:42,492 [ERROR] bi_copilot - Trace 1773142180027 — SQL execution error: Database error: (psycopg2.errors.UndefinedColumn) column m.machine_name does not exist
+LINE 1: SELECT m.machine_name, m.machine_type, m.manufacturer FROM m...
+               ^
+HINT:  Perhaps you meant to reference the column "m.machine_code" or the column "m.machine_type".
+
+[SQL: SELECT m.machine_name, m.machine_type, m.manufacturer FROM machines m JOIN units u ON m.unit_id = u.unit_id WHERE u.unit_name = 'Unit-1' AND m.machine_id IN (SELECT machine_id FROM machine_status WHERE status = 'Running');]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2026-03-10 16:29:43,823 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-10 16:29:43,823 [INFO] bi_copilot - Trace 1773142180027 — explanation added.
+2026-03-10 16:29:43,823 [INFO] bi_copilot - Trace 1773142180027 — run_agent complete. total_latency_ms=3796.04
+2026-03-10 20:00:41,425 [INFO] bi_copilot - Shutdown: cleaning up.
+2026-03-10 20:00:50,087 [INFO] bi_copilot - Logging initialized
+2026-03-10 20:00:50,104 [INFO] bi_copilot - Startup: warming schema cache …
+2026-03-10 20:00:50,104 [INFO] bi_copilot - Schema cache miss — fetching schema from database …
+2026-03-10 20:01:05,448 [INFO] bi_copilot - Schema cached successfully (5302 chars).
+2026-03-10 20:01:05,448 [INFO] bi_copilot - Startup: schema cache ready.
+2026-03-10 20:02:51,134 [INFO] bi_copilot - Shutdown: cleaning up.
+2026-03-10 20:04:34,037 [INFO] bi_copilot - Logging initialized
+2026-03-10 20:04:34,055 [INFO] bi_copilot - Startup: warming schema cache …
+2026-03-10 20:04:34,055 [INFO] bi_copilot - Schema cache miss — fetching schema from database …
+2026-03-10 20:04:48,503 [INFO] bi_copilot - Schema cached successfully (5302 chars).
+2026-03-10 20:04:48,503 [INFO] bi_copilot - Startup: schema cache ready.
+2026-03-10 20:06:52,938 [INFO] bi_copilot - Trace 1773155212938 — ingest_question: please show me unit 1 machines
+2026-03-10 20:06:57,164 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-10 20:06:57,204 [INFO] bi_copilot - Trace 1773155212938 — fast_path_sql generated query in 2161.2 ms
+2026-03-10 20:06:57,209 [INFO] bi_copilot - Trace 1773155212938 — guardrail: 1 candidate(s), blocked=False
+2026-03-10 20:06:57,858 [INFO] bi_copilot - Trace 1773155212938 — SQL executed in 649.3 ms, 1 rows returned.
+2026-03-10 20:06:57,870 [INFO] bi_copilot - Trace 1773155212938 — chart: none
+2026-03-10 20:07:00,021 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-10 20:07:00,023 [INFO] bi_copilot - Trace 1773155212938 — explanation added.
+2026-03-10 20:07:00,023 [INFO] bi_copilot - Trace 1773155212938 — run_agent complete. total_latency_ms=7101.27
+2026-03-11 11:27:35,595 [INFO] bi_copilot - Trace 1773210455595 — ingest_question: show me unit 1 machines
+2026-03-11 11:27:38,389 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-11 11:27:38,410 [INFO] bi_copilot - Trace 1773210455595 — fast_path_sql generated query in 2748.6 ms
+2026-03-11 11:27:38,417 [INFO] bi_copilot - Trace 1773210455595 — guardrail: 1 candidate(s), blocked=False
+2026-03-11 11:27:40,310 [INFO] bi_copilot - Trace 1773210455595 — SQL executed in 1889.0 ms, 1 rows returned.
+2026-03-11 11:27:40,456 [INFO] bi_copilot - Trace 1773210455595 — chart: none
+2026-03-11 11:27:42,230 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-11 11:27:42,236 [INFO] bi_copilot - Trace 1773210455595 — explanation added.
+2026-03-11 11:27:42,238 [INFO] bi_copilot - Trace 1773210455595 — run_agent complete. total_latency_ms=6742.68
+2026-03-11 21:56:49,423 [INFO] bi_copilot - Trace 1773248209423 — ingest_question: please show me to today's compressor temperature
+2026-03-11 21:56:52,661 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-11 21:56:52,676 [INFO] bi_copilot - Trace 1773248209423 — fast_path_sql generated query in 3234.2 ms
+2026-03-11 21:56:52,684 [INFO] bi_copilot - Trace 1773248209423 — guardrail: 1 candidate(s), blocked=False
+2026-03-11 21:56:54,563 [INFO] bi_copilot - Trace 1773248209423 — SQL executed in 1875.6 ms, 1 rows returned.
+2026-03-11 21:56:54,604 [INFO] bi_copilot - Trace 1773248209423 — chart: area
+2026-03-11 21:56:56,831 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-11 21:56:56,838 [INFO] bi_copilot - Trace 1773248209423 — explanation added.
+2026-03-11 21:56:56,840 [INFO] bi_copilot - Trace 1773248209423 — run_agent complete. total_latency_ms=7433.33
+2026-03-11 21:57:37,482 [INFO] bi_copilot - Trace 1773248257482 — ingest_question: please show me to today's compressor running hours
+2026-03-11 21:57:39,931 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-11 21:57:39,942 [INFO] bi_copilot - Trace 1773248257482 — fast_path_sql generated query in 2457.3 ms
+2026-03-11 21:57:39,944 [INFO] bi_copilot - Trace 1773248257482 — guardrail: 1 candidate(s), blocked=False
+2026-03-11 21:57:40,666 [INFO] bi_copilot - Trace 1773248257482 — SQL executed in 718.0 ms, 1 rows returned.
+2026-03-11 21:57:40,675 [INFO] bi_copilot - Trace 1773248257482 — chart: line
+2026-03-11 21:57:41,774 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-11 21:57:41,774 [INFO] bi_copilot - Trace 1773248257482 — explanation added.
+2026-03-11 21:57:41,774 [INFO] bi_copilot - Trace 1773248257482 — run_agent complete. total_latency_ms=4306.73
+2026-03-11 22:01:41,365 [INFO] bi_copilot - Trace 1773248501365 — ingest_question: please show me to today's compressor's running hours
+2026-03-11 22:01:43,925 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-11 22:01:43,929 [INFO] bi_copilot - Trace 1773248501365 — fast_path_sql generated query in 2559.2 ms
+2026-03-11 22:01:43,931 [INFO] bi_copilot - Trace 1773248501365 — guardrail: 1 candidate(s), blocked=False
+2026-03-11 22:01:44,537 [INFO] bi_copilot - Trace 1773248501365 — SQL executed in 605.8 ms, 2 rows returned.
+2026-03-11 22:01:44,550 [INFO] bi_copilot - Trace 1773248501365 — chart: line
+2026-03-11 22:01:48,110 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-11 22:01:48,126 [INFO] bi_copilot - Trace 1773248501365 — explanation added.
+2026-03-11 22:01:48,129 [INFO] bi_copilot - Trace 1773248501365 — run_agent complete. total_latency_ms=6763.53
+2026-03-12 08:38:48,514 [INFO] bi_copilot - Trace 1773286728514 — ingest_question: please show me compressors operational status
+2026-03-12 08:38:50,901 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-12 08:38:50,904 [INFO] bi_copilot - Trace 1773286728514 — fast_path_sql generated query in 2369.4 ms
+2026-03-12 08:38:50,917 [INFO] bi_copilot - Trace 1773286728514 — guardrail: 1 candidate(s), blocked=False
+2026-03-12 08:38:52,431 [INFO] bi_copilot - Trace 1773286728514 — SQL executed in 1511.3 ms, 5 rows returned.
+2026-03-12 08:38:52,532 [INFO] bi_copilot - Trace 1773286728514 — chart: pie
+2026-03-12 08:38:54,173 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-12 08:38:54,185 [INFO] bi_copilot - Trace 1773286728514 — explanation added.
+2026-03-12 08:38:54,189 [INFO] bi_copilot - Trace 1773286728514 — run_agent complete. total_latency_ms=5702.54
+2026-03-12 09:16:51,476 [INFO] bi_copilot - Trace 1773289011476 — ingest_question: please show me todays compressor report
+2026-03-12 09:16:53,275 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-12 09:16:53,290 [INFO] bi_copilot - Trace 1773289011476 — fast_path_sql generated query in 1785.2 ms
+2026-03-12 09:16:53,290 [INFO] bi_copilot - Trace 1773289011476 — guardrail: 1 candidate(s), blocked=False
+2026-03-12 09:16:53,989 [INFO] bi_copilot - Trace 1773289011476 — SQL executed in 699.9 ms, 3 rows returned.
+2026-03-12 09:16:54,073 [INFO] bi_copilot - Trace 1773289011476 — chart: area
+2026-03-12 09:16:55,986 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-12 09:16:55,988 [INFO] bi_copilot - Trace 1773289011476 — explanation added.
+2026-03-12 09:16:55,996 [INFO] bi_copilot - Trace 1773289011476 — run_agent complete. total_latency_ms=4552.28
+2026-03-13 13:10:56,022 [INFO] bi_copilot - Shutdown: cleaning up.
+2026-03-13 13:11:04,018 [INFO] bi_copilot - Logging initialized
+2026-03-13 13:11:04,021 [INFO] bi_copilot - Startup: warming schema cache …
+2026-03-13 13:11:04,021 [INFO] bi_copilot - Schema cache miss — fetching schema from database …
+2026-03-13 13:11:14,710 [INFO] bi_copilot - Schema cached successfully (5416 chars).
+2026-03-13 13:11:14,710 [INFO] bi_copilot - Startup: schema cache ready.
+2026-03-14 09:05:01,727 [INFO] bi_copilot - Shutdown: cleaning up.
+2026-03-14 09:30:01,425 [INFO] bi_copilot - Logging initialized
+2026-03-14 09:30:01,448 [INFO] bi_copilot - Startup: warming schema cache …
+2026-03-14 09:30:01,448 [INFO] bi_copilot - Schema cache miss — fetching schema from database …
+2026-03-14 09:30:14,878 [INFO] bi_copilot - Schema cached successfully (5809 chars).
+2026-03-14 09:30:14,878 [INFO] bi_copilot - Startup: schema cache ready.
+2026-03-14 09:35:58,305 [INFO] bi_copilot - Shutdown: cleaning up.
+2026-03-14 09:36:05,100 [INFO] bi_copilot - Logging initialized
+2026-03-14 09:36:05,134 [INFO] bi_copilot - Startup: warming schema cache …
+2026-03-14 09:36:05,134 [INFO] bi_copilot - Schema cache miss — fetching schema from database …
+2026-03-14 09:36:09,415 [ERROR] bi_copilot - Startup: schema cache warm-up failed: (psycopg2.OperationalError) connection to server at "localhost" (::1), port 5432 failed: Connection refused (0x0000274D/10061)
+	Is the server running on that host and accepting TCP/IP connections?
+connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused (0x0000274D/10061)
+	Is the server running on that host and accepting TCP/IP connections?
+
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-03-14 09:37:28,410 [INFO] bi_copilot - Shutdown: cleaning up.
+2026-03-14 09:37:32,155 [INFO] bi_copilot - Logging initialized
+2026-03-14 09:37:32,163 [INFO] bi_copilot - Startup: warming schema cache …
+2026-03-14 09:37:32,163 [INFO] bi_copilot - Schema cache miss — fetching schema from database …
+2026-03-14 09:37:36,304 [ERROR] bi_copilot - Startup: schema cache warm-up failed: (psycopg2.OperationalError) connection to server at "localhost" (::1), port 5432 failed: Connection refused (0x0000274D/10061)
+	Is the server running on that host and accepting TCP/IP connections?
+connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused (0x0000274D/10061)
+	Is the server running on that host and accepting TCP/IP connections?
+
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-03-14 09:39:38,187 [INFO] bi_copilot - Shutdown: cleaning up.
+2026-03-14 09:39:42,100 [INFO] bi_copilot - Logging initialized
+2026-03-14 09:39:42,100 [INFO] bi_copilot - Startup: warming schema cache …
+2026-03-14 09:39:42,100 [INFO] bi_copilot - Schema cache miss — fetching schema from database …
+2026-03-14 09:39:46,252 [ERROR] bi_copilot - Startup: schema cache warm-up failed: (psycopg2.OperationalError) connection to server at "localhost" (::1), port 5432 failed: Connection refused (0x0000274D/10061)
+	Is the server running on that host and accepting TCP/IP connections?
+connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused (0x0000274D/10061)
+	Is the server running on that host and accepting TCP/IP connections?
+
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-03-14 09:47:33,465 [INFO] bi_copilot - Shutdown: cleaning up.
+2026-03-14 09:47:54,107 [INFO] bi_copilot - Logging initialized
+2026-03-14 09:47:54,116 [INFO] bi_copilot - Startup: warming schema cache …
+2026-03-14 09:47:54,116 [INFO] bi_copilot - Schema cache miss — fetching schema from database …
+2026-03-14 09:48:06,654 [INFO] bi_copilot - Schema cached successfully (5809 chars).
+2026-03-14 09:48:06,654 [INFO] bi_copilot - Startup: schema cache ready.
+2026-03-14 09:51:20,838 [WARNING] passlib.handlers.bcrypt - (trapped) error reading bcrypt version
+Traceback (most recent call last):
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\passlib\handlers\bcrypt.py", line 620, in _load_backend_mixin
+    version = _bcrypt.__about__.__version__
+AttributeError: module 'bcrypt' has no attribute '__about__'
+2026-03-14 09:53:47,329 [INFO] bi_copilot - Shutdown: cleaning up.
+2026-03-14 09:54:13,570 [INFO] bi_copilot - Logging initialized
+2026-03-14 09:54:13,580 [INFO] bi_copilot - Startup: warming schema cache …
+2026-03-14 09:54:13,581 [INFO] bi_copilot - Schema cache miss — fetching schema from database …
+2026-03-14 09:54:17,709 [ERROR] bi_copilot - Startup: schema cache warm-up failed: (psycopg2.OperationalError) connection to server at "localhost" (::1), port 5432 failed: Connection refused (0x0000274D/10061)
+	Is the server running on that host and accepting TCP/IP connections?
+connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused (0x0000274D/10061)
+	Is the server running on that host and accepting TCP/IP connections?
+
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-03-14 09:55:07,395 [INFO] bi_copilot - Shutdown: cleaning up.
+2026-03-14 09:55:13,065 [INFO] bi_copilot - Logging initialized
+2026-03-14 09:55:13,073 [INFO] bi_copilot - Startup: warming schema cache …
+2026-03-14 09:55:13,073 [INFO] bi_copilot - Schema cache miss — fetching schema from database …
+2026-03-14 09:55:25,390 [INFO] bi_copilot - Schema cached successfully (5809 chars).
+2026-03-14 09:55:25,397 [INFO] bi_copilot - Startup: schema cache ready.
+2026-03-14 10:02:04,599 [INFO] bi_copilot - Shutdown: cleaning up.
+2026-03-14 10:02:08,668 [INFO] bi_copilot - Logging initialized
+2026-03-14 10:02:08,679 [INFO] bi_copilot - Startup: warming schema cache …
+2026-03-14 10:02:08,680 [INFO] bi_copilot - Schema cache miss — fetching schema from database …
+2026-03-14 10:02:21,008 [INFO] bi_copilot - Schema cached successfully (5970 chars).
+2026-03-14 10:02:21,008 [INFO] bi_copilot - Startup: schema cache ready.
+2026-03-14 10:10:58,871 [INFO] bi_copilot - Shutdown: cleaning up.
+2026-03-14 10:11:58,025 [INFO] bi_copilot - Logging initialized
+2026-03-14 10:11:58,040 [INFO] bi_copilot - Startup: warming schema cache …
+2026-03-14 10:11:58,040 [INFO] bi_copilot - Schema cache miss — fetching schema from database …
+2026-03-14 10:12:10,792 [INFO] bi_copilot - Schema cached successfully (5970 chars).
+2026-03-14 10:12:10,806 [INFO] bi_copilot - Startup: schema cache ready.
+2026-03-14 10:16:02,450 [INFO] bi_copilot - Shutdown: cleaning up.
+2026-03-14 10:16:08,058 [INFO] bi_copilot - Logging initialized
+2026-03-14 10:16:08,062 [INFO] bi_copilot - Startup: warming schema cache …
+2026-03-14 10:16:08,062 [INFO] bi_copilot - Schema cache miss — fetching schema from database …
+2026-03-14 10:16:20,308 [INFO] bi_copilot - Schema cached successfully (5970 chars).
+2026-03-14 10:16:20,308 [INFO] bi_copilot - Startup: schema cache ready.
+2026-03-14 10:17:26,792 [INFO] bi_copilot - Shutdown: cleaning up.
+2026-03-14 10:17:32,711 [INFO] bi_copilot - Logging initialized
+2026-03-14 10:17:32,727 [INFO] bi_copilot - Startup: warming schema cache …
+2026-03-14 10:17:32,727 [INFO] bi_copilot - Schema cache miss — fetching schema from database …
+2026-03-14 10:17:45,482 [INFO] bi_copilot - Schema cached successfully (5970 chars).
+2026-03-14 10:17:45,482 [INFO] bi_copilot - Startup: schema cache ready.
+2026-03-14 10:17:50,854 [INFO] bi_copilot - Trace 1773465470854 — ingest_question: show me temperatures of compressors
+2026-03-14 10:17:56,961 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-14 10:17:57,011 [INFO] bi_copilot - Trace 1773465470854 — fast_path_sql generated query in 3612.3 ms
+2026-03-14 10:17:57,016 [INFO] bi_copilot - Trace 1773465470854 — guardrail: 1 candidate(s), blocked=False
+2026-03-14 10:17:57,672 [INFO] bi_copilot - Trace 1773465470854 — SQL executed in 651.4 ms, 7 rows returned.
+2026-03-14 10:17:57,730 [INFO] bi_copilot - Trace 1773465470854 — chart: area
+2026-03-14 10:17:58,512 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-14 10:17:58,528 [INFO] bi_copilot - Trace 1773465470854 — explanation added.
+2026-03-14 10:17:58,538 [INFO] bi_copilot - Trace 1773465470854 — run_agent complete. total_latency_ms=7703.74
+2026-03-14 13:57:13,295 [INFO] bi_copilot - Shutdown: cleaning up.
+2026-03-14 13:57:20,448 [INFO] bi_copilot - Logging initialized
+2026-03-14 13:57:20,460 [INFO] bi_copilot - Startup: warming schema cache …
+2026-03-14 13:57:20,460 [INFO] bi_copilot - Schema cache miss — fetching schema from database …
+2026-03-14 13:57:34,737 [INFO] bi_copilot - Schema cached successfully (5970 chars).
+2026-03-14 13:57:34,739 [INFO] bi_copilot - Startup: schema cache ready.
+2026-03-14 13:59:56,578 [INFO] bi_copilot - Shutdown: cleaning up.
+2026-03-14 14:03:20,372 [INFO] bi_copilot - Logging initialized
+2026-03-14 14:04:03,454 [INFO] bi_copilot - Logging initialized
+2026-03-14 14:05:56,375 [INFO] bi_copilot - Logging initialized
+2026-03-14 14:05:56,477 [INFO] bi_copilot - Startup: warming schema cache …
+2026-03-14 14:05:56,477 [INFO] bi_copilot - Schema cache miss — fetching schema from database …
+2026-03-14 14:06:12,581 [INFO] bi_copilot - Schema cached successfully (5970 chars).
+2026-03-14 14:06:12,581 [INFO] bi_copilot - Startup: schema cache ready.
+2026-03-14 14:06:47,306 [INFO] bi_copilot - Trace 1773479207306 — ingest_question: please show me machine wise production
+
+2026-03-14 14:06:53,118 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-14 14:06:53,176 [INFO] bi_copilot - Trace 1773479207306 — fast_path_sql generated query in 3975.6 ms
+2026-03-14 14:06:53,180 [INFO] bi_copilot - Trace 1773479207306 — guardrail: 1 candidate(s), blocked=False
+2026-03-14 14:06:53,916 [INFO] bi_copilot - Trace 1773479207306 — SQL executed in 728.8 ms, 6 rows returned.
+2026-03-14 14:06:53,951 [INFO] bi_copilot - Trace 1773479207306 — chart: area
+2026-03-14 14:06:55,783 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-14 14:06:55,783 [INFO] bi_copilot - Trace 1773479207306 — explanation added.
+2026-03-14 14:06:55,797 [INFO] bi_copilot - Trace 1773479207306 — run_agent complete. total_latency_ms=8519.67
+2026-03-15 11:02:58,492 [INFO] bi_copilot - Shutdown: cleaning up.
+2026-03-15 11:03:04,698 [INFO] bi_copilot - Logging initialized
+2026-03-15 11:03:04,709 [INFO] bi_copilot - Startup: warming schema cache …
+2026-03-15 11:03:04,710 [INFO] bi_copilot - Schema cache miss — fetching schema from database …
+2026-03-15 11:03:13,939 [INFO] bi_copilot - Schema cached successfully (5970 chars).
+2026-03-15 11:03:13,939 [INFO] bi_copilot - Startup: schema cache ready.
+2026-03-15 11:05:05,301 [INFO] bi_copilot - Shutdown: cleaning up.
+2026-03-15 11:13:50,476 [INFO] bi_copilot - Logging initialized
+2026-03-15 11:13:50,494 [INFO] bi_copilot - Startup: warming schema cache …
+2026-03-15 11:13:50,494 [INFO] bi_copilot - Schema cache miss — fetching schema from database …
+2026-03-15 11:13:59,634 [INFO] bi_copilot - Schema cached successfully (5970 chars).
+2026-03-15 11:13:59,634 [INFO] bi_copilot - Startup: schema cache ready.
+2026-03-15 12:39:23,690 [INFO] bi_copilot - Shutdown: cleaning up.
+2026-03-15 12:39:28,659 [INFO] bi_copilot - Logging initialized
+2026-03-15 12:39:28,659 [INFO] bi_copilot - Startup: warming schema cache …
+2026-03-15 12:39:28,671 [INFO] bi_copilot - Schema cache miss — fetching schema from database …
+2026-03-15 12:39:57,516 [ERROR] bi_copilot - Startup: schema cache warm-up failed: (psycopg2.OperationalError) connection to server at "aws-1-ap-south-1.pooler.supabase.com" (13.200.110.68), port 5432 failed: server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-03-15 13:07:03,349 [INFO] bi_copilot - Trace 1773562023349 — ingest_question: please show me todays faults
+
+2026-03-15 13:07:05,130 [INFO] bi_copilot - Schema cache miss — fetching schema from database …
+2026-03-15 13:07:16,237 [INFO] bi_copilot - Schema cached successfully (6201 chars).
+2026-03-15 13:07:19,315 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-15 13:07:19,349 [INFO] bi_copilot - Trace 1773562023349 — fast_path_sql generated query in 3112.4 ms
+2026-03-15 13:07:19,349 [INFO] bi_copilot - Trace 1773562023349 — guardrail: 1 candidate(s), blocked=False
+2026-03-15 13:07:19,922 [INFO] bi_copilot - Trace 1773562023349 — SQL executed in 566.0 ms, 0 rows returned.
+2026-03-15 13:07:21,807 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-15 13:07:21,807 [INFO] bi_copilot - Trace 1773562023349 — explanation added.
+2026-03-15 13:07:21,815 [INFO] bi_copilot - Trace 1773562023349 — run_agent complete. total_latency_ms=18484.47
+2026-03-15 13:08:27,606 [INFO] bi_copilot - Trace 1773562107606 — ingest_question: please show me machenical faults
+
+2026-03-15 13:08:30,366 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-15 13:08:30,373 [INFO] bi_copilot - Trace 1773562107606 — fast_path_sql generated query in 2764.7 ms
+2026-03-15 13:08:30,380 [INFO] bi_copilot - Trace 1773562107606 — guardrail: 1 candidate(s), blocked=False
+2026-03-15 13:08:30,998 [INFO] bi_copilot - Trace 1773562107606 — SQL executed in 615.4 ms, 4 rows returned.
+2026-03-15 13:08:31,064 [INFO] bi_copilot - Trace 1773562107606 — chart: none
+2026-03-15 13:08:32,831 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-15 13:08:32,840 [INFO] bi_copilot - Trace 1773562107606 — explanation added.
+2026-03-15 13:08:32,840 [INFO] bi_copilot - Trace 1773562107606 — run_agent complete. total_latency_ms=5237.45
+2026-03-15 13:08:51,898 [INFO] bi_copilot - Trace 1773562131898 — ingest_question: please show me machenical issues
+
+2026-03-15 13:08:53,710 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-15 13:08:53,710 [INFO] bi_copilot - Trace 1773562131898 — fast_path_sql generated query in 1812.0 ms
+2026-03-15 13:08:53,716 [INFO] bi_copilot - Trace 1773562131898 — guardrail: 1 candidate(s), blocked=False
+2026-03-15 13:08:54,370 [INFO] bi_copilot - Trace 1773562131898 — SQL executed in 649.5 ms, 4 rows returned.
+2026-03-15 13:08:54,370 [INFO] bi_copilot - Trace 1773562131898 — chart: none
+2026-03-15 13:08:55,348 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-15 13:08:55,353 [INFO] bi_copilot - Trace 1773562131898 — explanation added.
+2026-03-15 13:08:55,353 [INFO] bi_copilot - Trace 1773562131898 — run_agent complete. total_latency_ms=3457.92
+2026-03-15 13:09:56,929 [INFO] bi_copilot - Trace 1773562196929 — ingest_question: please show me machenical report
+
+2026-03-15 13:09:59,438 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-15 13:09:59,438 [INFO] bi_copilot - Trace 1773562196929 — fast_path_sql generated query in 2504.4 ms
+2026-03-15 13:09:59,438 [INFO] bi_copilot - Trace 1773562196929 — guardrail: 1 candidate(s), blocked=False
+2026-03-15 13:10:00,361 [ERROR] bi_copilot - Trace 1773562196929 — SQL execution error: Database error: (psycopg2.errors.GroupingError) column "maintenance_logs.issue_type" must appear in the GROUP BY clause or be used in an aggregate function
+LINE 1: SELECT log_date::date AS report_date, machine_id, issue_type...
+                                                          ^
+
+[SQL: SELECT log_date::date AS report_date, machine_id, issue_type, SUM(downtime_minutes) AS total_downtime_minutes FROM maintenance_logs WHERE issue_type = 'Mechanical' GROUP BY log_date::date, machine_id ORDER BY report_date ASC;]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2026-03-15 13:10:02,517 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-15 13:10:02,521 [INFO] bi_copilot - Trace 1773562196929 — explanation added.
+2026-03-15 13:10:02,521 [INFO] bi_copilot - Trace 1773562196929 — run_agent complete. total_latency_ms=5594.62
+2026-03-15 13:10:19,872 [INFO] bi_copilot - Trace 1773562219872 — ingest_question: please show me machenical loggs
+
+2026-03-15 13:10:22,786 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-15 13:10:22,790 [INFO] bi_copilot - Trace 1773562219872 — fast_path_sql generated query in 2914.0 ms
+2026-03-15 13:10:22,793 [INFO] bi_copilot - Trace 1773562219872 — guardrail: 1 candidate(s), blocked=False
+2026-03-15 13:10:23,276 [INFO] bi_copilot - Trace 1773562219872 — SQL executed in 482.9 ms, 11 rows returned.
+2026-03-15 13:10:23,294 [INFO] bi_copilot - Trace 1773562219872 — chart: none
+2026-03-15 13:10:24,114 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-15 13:10:24,118 [INFO] bi_copilot - Trace 1773562219872 — explanation added.
+2026-03-15 13:10:24,121 [INFO] bi_copilot - Trace 1773562219872 — run_agent complete. total_latency_ms=4253.88
+2026-03-15 13:10:56,899 [INFO] bi_copilot - Trace 1773562256899 — ingest_question: Production lines with lowest OEE this week
+2026-03-15 13:10:59,754 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-15 13:10:59,760 [INFO] bi_copilot - Trace 1773562256899 — fast_path_sql generated query in 2860.8 ms
+2026-03-15 13:10:59,760 [INFO] bi_copilot - Trace 1773562256899 — guardrail: 1 candidate(s), blocked=False
+2026-03-15 13:11:00,560 [ERROR] bi_copilot - Trace 1773562256899 — SQL execution error: Database error: (psycopg2.errors.SyntaxError) syntax error at or near "AS"
+LINE 1: ...:numeric / NULLIF(raw_material_used, 0) * 100, 2) AS oee_pct...
+                                                             ^
+
+[SQL: SELECT machine_id, ROUND(AVG(units_produced::numeric / NULLIF(raw_material_used, 0) * 100, 2) AS oee_pct FROM machine_production_daily WHERE production_date >= DATE_TRUNC('week', CURRENT_DATE) GROUP BY machine_id ORDER BY oee_pct ASC LIMIT 10;]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2026-03-15 13:11:01,575 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-15 13:11:01,575 [INFO] bi_copilot - Trace 1773562256899 — explanation added.
+2026-03-15 13:11:01,575 [INFO] bi_copilot - Trace 1773562256899 — run_agent complete. total_latency_ms=4677.05
+2026-03-15 13:14:50,818 [INFO] bi_copilot - Trace 1773562490818 — ingest_question: please show me todays compressors readings
+2026-03-15 13:14:53,279 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-15 13:14:53,291 [INFO] bi_copilot - Trace 1773562490818 — fast_path_sql generated query in 2471.2 ms
+2026-03-15 13:14:53,294 [INFO] bi_copilot - Trace 1773562490818 — guardrail: 1 candidate(s), blocked=False
+2026-03-15 13:15:16,510 [INFO] bi_copilot - Trace 1773562490818 — SQL executed in 23214.0 ms, 3 rows returned.
+2026-03-15 13:15:16,534 [INFO] bi_copilot - Trace 1773562490818 — chart: area
+2026-03-15 13:15:18,881 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-15 13:15:18,888 [INFO] bi_copilot - Trace 1773562490818 — explanation added.
+2026-03-15 13:15:18,890 [INFO] bi_copilot - Trace 1773562490818 — run_agent complete. total_latency_ms=28072.01
+2026-03-17 10:24:04,379 [INFO] bi_copilot - Shutdown: cleaning up.
+2026-03-17 10:24:09,188 [INFO] bi_copilot - Logging initialized
+2026-03-17 10:24:09,193 [INFO] bi_copilot - Startup: warming schema cache …
+2026-03-17 10:24:09,193 [INFO] bi_copilot - Schema cache miss — fetching schema from database …
+2026-03-17 10:24:19,416 [INFO] bi_copilot - Schema cached successfully (6201 chars).
+2026-03-17 10:24:19,416 [INFO] bi_copilot - Startup: schema cache ready.
+2026-03-17 10:24:23,140 [INFO] bi_copilot - Logging initialized
+2026-03-17 10:24:23,165 [INFO] bi_copilot - Startup: warming schema cache …
+2026-03-17 10:24:23,165 [INFO] bi_copilot - Schema cache miss — fetching schema from database …
+2026-03-17 10:24:32,025 [INFO] bi_copilot - Schema cached successfully (6201 chars).
+2026-03-17 10:24:32,025 [INFO] bi_copilot - Startup: schema cache ready.
+2026-03-17 10:26:52,226 [INFO] bi_copilot - Shutdown: cleaning up.
+2026-03-17 10:26:59,092 [INFO] bi_copilot - Logging initialized
+2026-03-17 10:26:59,128 [INFO] bi_copilot - Startup: warming schema cache …
+2026-03-17 10:26:59,128 [INFO] bi_copilot - Schema cache miss — fetching schema from database …
+2026-03-17 10:27:07,542 [INFO] bi_copilot - Schema cached successfully (6201 chars).
+2026-03-17 10:27:07,542 [INFO] bi_copilot - Startup: schema cache ready.
+2026-03-17 10:29:09,430 [INFO] bi_copilot - Shutdown: cleaning up.
+2026-03-17 10:29:12,874 [INFO] bi_copilot - Logging initialized
+2026-03-17 10:29:12,891 [INFO] bi_copilot - Startup: warming schema cache …
+2026-03-17 10:29:12,891 [INFO] bi_copilot - Schema cache miss — fetching schema from database …
+2026-03-17 10:29:22,199 [INFO] bi_copilot - Schema cached successfully (6201 chars).
+2026-03-17 10:29:22,199 [INFO] bi_copilot - Startup: schema cache ready.
+2026-03-17 10:30:09,009 [INFO] bi_copilot - Trace 1773725409009 — ingest_question: please show me total production of each machine
+2026-03-17 10:30:14,409 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-17 10:30:14,442 [INFO] bi_copilot - Trace 1773725409009 — fast_path_sql generated query in 3698.7 ms
+2026-03-17 10:30:14,457 [INFO] bi_copilot - Trace 1773725409009 — guardrail: 1 candidate(s), blocked=False
+2026-03-17 10:30:14,918 [INFO] bi_copilot - Trace 1773725409009 — SQL executed in 459.5 ms, 5 rows returned.
+2026-03-17 10:30:14,950 [INFO] bi_copilot - Trace 1773725409009 — chart: pie
+2026-03-17 10:30:17,274 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-17 10:30:17,283 [INFO] bi_copilot - Trace 1773725409009 — explanation added.
+2026-03-17 10:30:17,283 [INFO] bi_copilot - Trace 1773725409009 — run_agent complete. total_latency_ms=8284.51
+2026-03-17 12:21:52,507 [INFO] bi_copilot - Shutdown: cleaning up.
+2026-03-17 12:21:58,975 [INFO] bi_copilot - Logging initialized
+2026-03-17 12:21:58,975 [INFO] bi_copilot - Startup: warming schema cache …
+2026-03-17 12:21:58,975 [INFO] bi_copilot - Schema cache miss — fetching schema from database …
+2026-03-17 12:22:08,835 [INFO] bi_copilot - Schema cached successfully (6201 chars).
+2026-03-17 12:22:08,835 [INFO] bi_copilot - Startup: schema cache ready.
+2026-03-17 12:22:57,701 [INFO] bi_copilot - Trace 1773732177701 — ingest_question: please show me maintenance logs
+2026-03-17 12:23:02,591 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-17 12:23:02,636 [INFO] bi_copilot - Trace 1773732177701 — fast_path_sql generated query in 2944.4 ms
+2026-03-17 12:23:02,638 [INFO] bi_copilot - Trace 1773732177701 — guardrail: 1 candidate(s), blocked=False
+2026-03-17 12:23:03,064 [INFO] bi_copilot - Trace 1773732177701 — SQL executed in 421.4 ms, 11 rows returned.
+2026-03-17 12:23:03,101 [INFO] bi_copilot - Trace 1773732177701 — chart: none
+2026-03-17 12:23:04,843 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-17 12:23:04,845 [INFO] bi_copilot - Trace 1773732177701 — explanation added.
+2026-03-17 12:23:04,845 [INFO] bi_copilot - Trace 1773732177701 — run_agent complete. total_latency_ms=7166.92
+2026-03-17 12:35:48,827 [INFO] bi_copilot - Trace 1773732948827 — ingest_question: show me power consumption 
+2026-03-17 12:35:52,168 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-17 12:35:52,175 [INFO] bi_copilot - Trace 1773732948827 — fast_path_sql generated query in 3345.9 ms
+2026-03-17 12:35:52,179 [INFO] bi_copilot - Trace 1773732948827 — guardrail: 1 candidate(s), blocked=False
+2026-03-17 12:35:52,836 [INFO] bi_copilot - Trace 1773732948827 — SQL executed in 655.0 ms, 3 rows returned.
+2026-03-17 12:35:52,857 [INFO] bi_copilot - Trace 1773732948827 — chart: area
+2026-03-17 12:35:55,022 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-17 12:35:55,036 [INFO] bi_copilot - Trace 1773732948827 — explanation added.
+2026-03-17 12:35:55,036 [INFO] bi_copilot - Trace 1773732948827 — run_agent complete. total_latency_ms=6215.78
+2026-03-17 12:43:51,505 [INFO] bi_copilot - Shutdown: cleaning up.
+2026-03-17 12:44:00,198 [INFO] bi_copilot - Logging initialized
+2026-03-17 12:44:00,219 [INFO] bi_copilot - Startup: warming schema cache …
+2026-03-17 12:44:00,219 [INFO] bi_copilot - Schema cache miss — fetching schema from database …
+2026-03-17 12:44:10,012 [INFO] bi_copilot - Schema cached successfully (6201 chars).
+2026-03-17 12:44:10,012 [INFO] bi_copilot - Startup: schema cache ready.
+2026-03-17 12:44:43,862 [INFO] bi_copilot - Shutdown: cleaning up.
+2026-03-17 12:45:07,575 [INFO] bi_copilot - Logging initialized
+2026-03-17 12:45:07,592 [INFO] bi_copilot - Startup: warming schema cache …
+2026-03-17 12:45:07,592 [INFO] bi_copilot - Schema cache miss — fetching schema from database …
+2026-03-17 12:45:16,144 [INFO] bi_copilot - Schema cached successfully (6201 chars).
+2026-03-17 12:45:16,144 [INFO] bi_copilot - Startup: schema cache ready.
+2026-03-17 12:48:57,844 [INFO] bi_copilot - Shutdown: cleaning up.
+2026-03-17 12:49:04,594 [INFO] bi_copilot - Logging initialized
+2026-03-17 12:49:04,608 [INFO] bi_copilot - Startup: warming schema cache …
+2026-03-17 12:49:04,608 [INFO] bi_copilot - Schema cache miss — fetching schema from database …
+2026-03-17 12:49:14,171 [INFO] bi_copilot - Schema cached successfully (6201 chars).
+2026-03-17 12:49:14,171 [INFO] bi_copilot - Startup: schema cache ready.
+2026-03-17 12:50:24,008 [INFO] bi_copilot - Trace 1773733824008 — ingest_question: please show me todays attandance
+2026-03-17 12:50:29,030 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-17 12:50:29,062 [INFO] bi_copilot - Trace 1773733824008 — fast_path_sql generated query in 2924.4 ms
+2026-03-17 12:50:29,081 [INFO] bi_copilot - Trace 1773733824008 — guardrail: 1 candidate(s), blocked=False
+2026-03-17 12:50:29,553 [ERROR] bi_copilot - Trace 1773733824008 — SQL execution error: Database error: (psycopg2.errors.UndefinedColumn) column "user_id" does not exist
+LINE 1: SELECT user_id, email, is_active FROM users WHERE created_at...
+               ^
+
+[SQL: SELECT user_id, email, is_active FROM users WHERE created_at::date = CURRENT_DATE;]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2026-03-17 12:50:31,195 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-17 12:50:31,195 [INFO] bi_copilot - Trace 1773733824008 — retry_sql produced corrected query in 1617.7 ms (retry #1)
+2026-03-17 12:50:31,807 [INFO] bi_copilot - Trace 1773733824008 — SQL executed in 611.3 ms, 0 rows returned.
+2026-03-17 12:50:33,714 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-17 12:50:33,722 [INFO] bi_copilot - Trace 1773733824008 — explanation added.
+2026-03-17 12:50:33,728 [INFO] bi_copilot - Trace 1773733824008 — run_agent complete. total_latency_ms=9736.26
+2026-03-17 12:57:46,995 [INFO] bi_copilot - Shutdown: cleaning up.
+2026-03-17 12:57:52,968 [INFO] bi_copilot - Logging initialized
+2026-03-17 12:57:52,985 [INFO] bi_copilot - Startup: warming schema cache …
+2026-03-17 12:57:52,985 [INFO] bi_copilot - Schema cache miss — fetching schema from database …
+2026-03-17 12:58:03,029 [INFO] bi_copilot - Schema cached successfully (6755 chars).
+2026-03-17 12:58:03,029 [INFO] bi_copilot - Startup: schema cache ready.
+2026-03-17 12:59:00,194 [INFO] bi_copilot - Trace 1773734340194 — ingest_question: please show me machines downtimes
+2026-03-17 12:59:04,379 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-17 12:59:04,431 [INFO] bi_copilot - Trace 1773734340194 — fast_path_sql generated query in 2355.2 ms
+2026-03-17 12:59:04,435 [INFO] bi_copilot - Trace 1773734340194 — guardrail: 1 candidate(s), blocked=False
+2026-03-17 12:59:04,845 [INFO] bi_copilot - Trace 1773734340194 — SQL executed in 404.6 ms, 5 rows returned.
+2026-03-17 12:59:04,863 [INFO] bi_copilot - Trace 1773734340194 — chart: none
+2026-03-17 12:59:06,701 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-17 12:59:06,701 [INFO] bi_copilot - Trace 1773734340194 — explanation added.
+2026-03-17 12:59:06,711 [INFO] bi_copilot - Trace 1773734340194 — run_agent complete. total_latency_ms=6532.33
+2026-03-17 12:59:06,803 [ERROR] bi_copilot - Unhandled exception: string indices must be integers
+Traceback (most recent call last):
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\middleware\cors.py", line 93, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\middleware\cors.py", line 144, in simple_response
+    await self.app(scope, receive, send)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\routing.py", line 736, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\routing.py", line 290, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\fastapi\routing.py", line 115, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\fastapi\routing.py", line 101, in app
+    response = await f(request)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\fastapi\routing.py", line 355, in app
+    raw_response = await run_endpoint_function(
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\fastapi\routing.py", line 243, in run_endpoint_function
+    return await dependant.call(**values)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\slowapi\extension.py", line 734, in async_wrapper
+    response = await func(*args, **kwargs)  # type: ignore
+  File "C:\Users\lenovo\Documents\Project\AI_copilot\BI-Copliot\backend\app.py", line 145, in nl2sql
+    "email": current_user["email"],
+TypeError: string indices must be integers
+2026-03-17 13:04:18,275 [INFO] bi_copilot - Shutdown: cleaning up.
+2026-03-17 13:04:25,511 [INFO] bi_copilot - Logging initialized
+2026-03-17 13:04:25,527 [INFO] bi_copilot - Startup: warming schema cache …
+2026-03-17 13:04:25,527 [INFO] bi_copilot - Schema cache miss — fetching schema from database …
+2026-03-17 13:04:35,704 [INFO] bi_copilot - Schema cached successfully (6755 chars).
+2026-03-17 13:04:35,715 [INFO] bi_copilot - Startup: schema cache ready.
+2026-03-17 13:05:01,175 [INFO] bi_copilot - Trace 1773734701175 — ingest_question: please show me machines downtimes
+2026-03-17 13:05:13,659 [INFO] openai._base_client - Retrying request to /chat/completions in 0.485980 seconds
+2026-03-17 13:05:25,258 [INFO] openai._base_client - Retrying request to /chat/completions in 0.998518 seconds
+2026-03-17 13:05:26,261 [ERROR] bi_copilot - Unhandled exception: Connection error.
+Traceback (most recent call last):
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\httpx\_transports\default.py", line 101, in map_httpcore_exceptions
+    yield
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\httpx\_transports\default.py", line 250, in handle_request
+    resp = self._pool.handle_request(req)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\httpcore\_sync\connection_pool.py", line 256, in handle_request
+    raise exc from None
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\httpcore\_sync\connection_pool.py", line 236, in handle_request
+    response = connection.handle_request(
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\httpcore\_sync\connection.py", line 101, in handle_request
+    raise exc
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\httpcore\_sync\connection.py", line 78, in handle_request
+    stream = self._connect(request)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\httpcore\_sync\connection.py", line 124, in _connect
+    stream = self._network_backend.connect_tcp(**kwargs)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\httpcore\_backends\sync.py", line 207, in connect_tcp
+    with map_exceptions(exc_map):
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\contextlib.py", line 153, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\httpcore\_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.ConnectError: [Errno 11001] getaddrinfo failed
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\openai\_base_client.py", line 982, in request
+    response = self._client.send(
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\httpx\_client.py", line 914, in send
+    response = self._send_handling_auth(
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\httpx\_client.py", line 942, in _send_handling_auth
+    response = self._send_handling_redirects(
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\httpx\_client.py", line 979, in _send_handling_redirects
+    response = self._send_single_request(request)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\httpx\_client.py", line 1014, in _send_single_request
+    response = transport.handle_request(request)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\httpx\_transports\default.py", line 249, in handle_request
+    with map_httpcore_exceptions():
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\contextlib.py", line 153, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\httpx\_transports\default.py", line 118, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.ConnectError: [Errno 11001] getaddrinfo failed
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\middleware\cors.py", line 93, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\middleware\cors.py", line 144, in simple_response
+    await self.app(scope, receive, send)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\routing.py", line 736, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\routing.py", line 290, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\fastapi\routing.py", line 115, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\fastapi\routing.py", line 101, in app
+    response = await f(request)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\fastapi\routing.py", line 355, in app
+    raw_response = await run_endpoint_function(
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\fastapi\routing.py", line 243, in run_endpoint_function
+    return await dependant.call(**values)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\slowapi\extension.py", line 734, in async_wrapper
+    response = await func(*args, **kwargs)  # type: ignore
+  File "C:\Users\lenovo\Documents\Project\AI_copilot\BI-Copliot\backend\app.py", line 126, in nl2sql
+    state = await asyncio.to_thread(run_agent, question=req.question)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\asyncio\threads.py", line 25, in to_thread
+    return await loop.run_in_executor(None, func_call)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\concurrent\futures\thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "C:\Users\lenovo\Documents\Project\AI_copilot\BI-Copliot\backend\agent\runner.py", line 34, in run_agent
+    final_state = _graph.invoke(init_state)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\langgraph\pregel\main.py", line 3094, in invoke
+    for chunk in self.stream(
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\langgraph\pregel\main.py", line 2669, in stream
+    for _ in runner.tick(
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\langgraph\pregel\_runner.py", line 167, in tick
+    run_with_retry(
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\langgraph\pregel\_retry.py", line 71, in run_with_retry
+    return task.proc.invoke(task.input, config)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\langgraph\_internal\_runnable.py", line 656, in invoke
+    input = context.run(step.invoke, input, config, **kwargs)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\langgraph\_internal\_runnable.py", line 400, in invoke
+    ret = self.func(*args, **kwargs)
+  File "C:\Users\lenovo\Documents\Project\AI_copilot\BI-Copliot\backend\agent\nodes.py", line 157, in fast_path_sql
+    resp = llm.invoke(
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\langchain_core\language_models\chat_models.py", line 402, in invoke
+    self.generate_prompt(
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\langchain_core\language_models\chat_models.py", line 1123, in generate_prompt
+    return self.generate(prompt_messages, stop=stop, callbacks=callbacks, **kwargs)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\langchain_core\language_models\chat_models.py", line 933, in generate
+    self._generate_with_cache(
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\langchain_core\language_models\chat_models.py", line 1235, in _generate_with_cache
+    result = self._generate(
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\langchain_openai\chat_models\base.py", line 1473, in _generate
+    _handle_openai_api_error(e)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\langchain_openai\chat_models\base.py", line 1468, in _generate
+    raw_response = self.client.with_raw_response.create(**payload)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\openai\_legacy_response.py", line 364, in wrapped
+    return cast(LegacyAPIResponse[R], func(*args, **kwargs))
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\openai\_utils\_utils.py", line 286, in wrapper
+    return func(*args, **kwargs)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\openai\resources\chat\completions\completions.py", line 1192, in create
+    return self._post(
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\openai\_base_client.py", line 1259, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\openai\_base_client.py", line 1014, in request
+    raise APIConnectionError(request=request) from err
+openai.APIConnectionError: Connection error.
+2026-03-17 13:06:11,469 [INFO] bi_copilot - Shutdown: cleaning up.
+2026-03-17 13:06:14,974 [INFO] bi_copilot - Logging initialized
+2026-03-17 13:06:14,990 [INFO] bi_copilot - Startup: warming schema cache …
+2026-03-17 13:06:14,996 [INFO] bi_copilot - Schema cache miss — fetching schema from database …
+2026-03-17 13:06:15,059 [ERROR] bi_copilot - Startup: schema cache warm-up failed: (psycopg2.OperationalError) could not translate host name "aws-1-ap-south-1.pooler.supabase.com" to address: Name or service not known
+
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-03-17 13:06:38,200 [INFO] bi_copilot - Trace 1773734798200 — ingest_question: please show me machines downtimes
+2026-03-17 13:06:39,350 [INFO] bi_copilot - Schema cache miss — fetching schema from database …
+2026-03-17 13:06:48,040 [INFO] bi_copilot - Schema cached successfully (6755 chars).
+2026-03-17 13:06:52,936 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-17 13:06:52,942 [INFO] bi_copilot - Trace 1773734798200 — fast_path_sql generated query in 4893.1 ms
+2026-03-17 13:06:52,942 [INFO] bi_copilot - Trace 1773734798200 — guardrail: 1 candidate(s), blocked=False
+2026-03-17 13:06:53,325 [INFO] bi_copilot - Trace 1773734798200 — SQL executed in 378.3 ms, 5 rows returned.
+2026-03-17 13:06:53,333 [INFO] bi_copilot - Trace 1773734798200 — chart: none
+2026-03-17 13:06:54,418 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-17 13:06:54,431 [INFO] bi_copilot - Trace 1773734798200 — explanation added.
+2026-03-17 13:06:54,432 [INFO] bi_copilot - Trace 1773734798200 — run_agent complete. total_latency_ms=16238.59
+2026-03-17 13:20:13,401 [INFO] bi_copilot - Shutdown: cleaning up.
+2026-03-17 13:20:17,627 [INFO] bi_copilot - Logging initialized
+2026-03-17 13:20:17,638 [INFO] bi_copilot - Startup: warming schema cache …
+2026-03-17 13:20:17,638 [INFO] bi_copilot - Schema cache miss — fetching schema from database …
+2026-03-17 13:20:47,082 [INFO] bi_copilot - Schema cached successfully (6755 chars).
+2026-03-17 13:20:47,082 [INFO] bi_copilot - Startup: schema cache ready.
+2026-03-17 13:20:58,375 [INFO] bi_copilot - Trace 1773735658375 — ingest_question: please show me machines downtimes
+2026-03-17 13:21:01,782 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-17 13:21:01,810 [INFO] bi_copilot - Trace 1773735658375 — fast_path_sql generated query in 2148.8 ms
+2026-03-17 13:21:01,810 [INFO] bi_copilot - Trace 1773735658375 — guardrail: 1 candidate(s), blocked=False
+2026-03-17 13:21:02,177 [INFO] bi_copilot - Trace 1773735658375 — SQL executed in 366.7 ms, 5 rows returned.
+2026-03-17 13:21:02,199 [INFO] bi_copilot - Trace 1773735658375 — chart: none
+2026-03-17 13:21:03,458 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-17 13:21:03,465 [INFO] bi_copilot - Trace 1773735658375 — explanation added.
+2026-03-17 13:21:03,470 [INFO] bi_copilot - Trace 1773735658375 — run_agent complete. total_latency_ms=5106.30
+2026-03-17 13:21:03,842 [ERROR] bi_copilot - Failed to save query log: (psycopg2.errors.UndefinedColumn) column "safety_blocked" of relation "query_logs" does not exist
+LINE 6:                         safety_blocked, retried
+                                ^
+
+[SQL: 
+                    INSERT INTO query_logs (
+                        user_email, question, chosen_sql,
+                        success, error,
+                        tft_ms, tfr_ms, total_latency_ms,
+                        safety_blocked, retried
+                    ) VALUES (
+                        %(email)s, %(question)s, %(sql)s,
+                        %(success)s, %(error)s,
+                        %(tft)s, %(tfr)s, %(total)s,
+                        %(safety_blocked)s, %(retried)s
+                    )
+                ]
+[parameters: {'email': 'usmanashraf4360@gmail.com', 'question': 'please show me machines downtimes', 'sql': 'SELECT machine_id, SUM(downtime_minutes) AS total_downtime_minutes FROM maintenance_logs GROUP BY machine_id ORDER BY total_downtime_minutes DESC;', 'success': True, 'error': None, 'tft': 2148.8137245178223, 'tfr': 366.7120933532715, 'total': 5106.297969818115, 'safety_blocked': False, 'retried': False}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2026-03-17 13:24:13,367 [INFO] bi_copilot - Trace 1773735853367 — ingest_question: please show me machines downtimes
+2026-03-17 13:24:19,631 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-17 13:24:19,636 [INFO] bi_copilot - Trace 1773735853367 — fast_path_sql generated query in 6268.6 ms
+2026-03-17 13:24:19,636 [INFO] bi_copilot - Trace 1773735853367 — guardrail: 1 candidate(s), blocked=False
+2026-03-17 13:24:20,081 [INFO] bi_copilot - Trace 1773735853367 — SQL executed in 444.5 ms, 5 rows returned.
+2026-03-17 13:24:20,096 [INFO] bi_copilot - Trace 1773735853367 — chart: none
+2026-03-17 13:24:21,263 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-17 13:24:21,265 [INFO] bi_copilot - Trace 1773735853367 — explanation added.
+2026-03-17 13:24:21,265 [INFO] bi_copilot - Trace 1773735853367 — run_agent complete. total_latency_ms=7898.46
+2026-03-17 13:24:21,663 [INFO] bi_copilot - Query log saved for user: usmanashraf4360@gmail.com
+2026-03-17 13:33:40,940 [INFO] bi_copilot - Shutdown: cleaning up.
+2026-03-17 13:33:44,732 [INFO] bi_copilot - Logging initialized
+2026-03-17 13:33:44,742 [INFO] bi_copilot - Startup: warming schema cache …
+2026-03-17 13:33:44,742 [INFO] bi_copilot - Schema cache miss — fetching schema from database …
+2026-03-17 13:33:53,738 [INFO] bi_copilot - Schema cached successfully (7113 chars).
+2026-03-17 13:33:53,739 [INFO] bi_copilot - Startup: schema cache ready.
+2026-03-17 13:38:34,499 [INFO] bi_copilot - Shutdown: cleaning up.
+2026-03-17 13:39:01,502 [INFO] bi_copilot - Logging initialized
+2026-03-17 13:39:01,502 [INFO] bi_copilot - Startup: warming schema cache …
+2026-03-17 13:39:01,502 [INFO] bi_copilot - Schema cache miss — fetching schema from database …
+2026-03-17 13:39:09,984 [INFO] bi_copilot - Schema cached successfully (7113 chars).
+2026-03-17 13:39:09,984 [INFO] bi_copilot - Startup: schema cache ready.
+2026-03-17 13:40:26,445 [INFO] bi_copilot - Trace 1773736826444 — ingest_question: please show me power consumption
+2026-03-17 13:40:30,432 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-17 13:40:30,458 [INFO] bi_copilot - Trace 1773736826444 — fast_path_sql generated query in 2849.5 ms
+2026-03-17 13:40:30,465 [INFO] bi_copilot - Trace 1773736826444 — guardrail: 1 candidate(s), blocked=False
+2026-03-17 13:40:30,831 [INFO] bi_copilot - Trace 1773736826444 — SQL executed in 366.0 ms, 3 rows returned.
+2026-03-17 13:40:30,842 [INFO] bi_copilot - Trace 1773736826444 — chart: line
+2026-03-17 13:40:31,509 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-17 13:40:31,509 [INFO] bi_copilot - Trace 1773736826444 — explanation added.
+2026-03-17 13:40:31,523 [INFO] bi_copilot - Trace 1773736826444 — run_agent complete. total_latency_ms=5094.77
+2026-03-17 13:40:31,898 [INFO] bi_copilot - Query log saved for user: usmanashraf4360@gmail.com
+2026-03-17 13:48:58,681 [INFO] bi_copilot - Shutdown: cleaning up.
+2026-03-17 13:49:02,965 [INFO] bi_copilot - Logging initialized
+2026-03-17 13:49:02,974 [INFO] bi_copilot - Startup: warming schema cache …
+2026-03-17 13:49:02,974 [INFO] bi_copilot - Schema cache miss — fetching schema from database …
+2026-03-17 13:49:11,168 [INFO] bi_copilot - Schema cached successfully (7416 chars).
+2026-03-17 13:49:11,168 [INFO] bi_copilot - Startup: schema cache ready.
+2026-03-17 13:49:14,536 [INFO] bi_copilot - Logging initialized
+2026-03-17 13:49:14,554 [INFO] bi_copilot - Startup: warming schema cache …
+2026-03-17 13:49:14,554 [INFO] bi_copilot - Schema cache miss — fetching schema from database …
+2026-03-17 13:49:22,497 [INFO] bi_copilot - Schema cached successfully (7416 chars).
+2026-03-17 13:49:22,498 [INFO] bi_copilot - Startup: schema cache ready.
+2026-03-17 13:50:20,704 [INFO] bi_copilot - Shutdown: cleaning up.
+2026-03-17 13:50:24,280 [INFO] bi_copilot - Logging initialized
+2026-03-17 13:50:24,301 [INFO] bi_copilot - Startup: warming schema cache …
+2026-03-17 13:50:24,301 [INFO] bi_copilot - Schema cache miss — fetching schema from database …
+2026-03-17 13:50:32,825 [INFO] bi_copilot - Schema cached successfully (7416 chars).
+2026-03-17 13:50:32,825 [INFO] bi_copilot - Startup: schema cache ready.
+2026-03-17 13:57:24,648 [INFO] bi_copilot - Shutdown: cleaning up.
+2026-03-17 13:57:28,331 [INFO] bi_copilot - Logging initialized
+2026-03-17 13:57:28,339 [INFO] bi_copilot - Startup: warming schema cache …
+2026-03-17 13:57:28,339 [INFO] bi_copilot - Schema cache miss — fetching schema from database …
+2026-03-17 13:57:37,458 [INFO] bi_copilot - Schema cached successfully (7416 chars).
+2026-03-17 13:57:37,458 [INFO] bi_copilot - Startup: schema cache ready.
+2026-03-17 13:58:09,142 [INFO] bi_copilot - Shutdown: cleaning up.
+2026-03-17 13:58:13,080 [INFO] bi_copilot - Logging initialized
+2026-03-17 13:58:13,090 [INFO] bi_copilot - Startup: warming schema cache …
+2026-03-17 13:58:13,091 [INFO] bi_copilot - Schema cache miss — fetching schema from database …
+2026-03-17 13:58:21,319 [INFO] bi_copilot - Schema cached successfully (7416 chars).
+2026-03-17 13:58:21,319 [INFO] bi_copilot - Startup: schema cache ready.
+2026-03-17 13:58:24,904 [INFO] bi_copilot - Logging initialized
+2026-03-17 13:58:24,922 [INFO] bi_copilot - Startup: warming schema cache …
+2026-03-17 13:58:24,922 [INFO] bi_copilot - Schema cache miss — fetching schema from database …
+2026-03-17 13:58:33,601 [INFO] bi_copilot - Schema cached successfully (7416 chars).
+2026-03-17 13:58:33,601 [INFO] bi_copilot - Startup: schema cache ready.
+2026-03-17 13:59:09,513 [INFO] bi_copilot - Shutdown: cleaning up.
+2026-03-17 13:59:12,913 [INFO] bi_copilot - Logging initialized
+2026-03-17 13:59:12,916 [INFO] bi_copilot - Startup: warming schema cache …
+2026-03-17 13:59:12,916 [INFO] bi_copilot - Schema cache miss — fetching schema from database …
+2026-03-17 13:59:21,759 [INFO] bi_copilot - Schema cached successfully (7416 chars).
+2026-03-17 13:59:21,759 [INFO] bi_copilot - Startup: schema cache ready.
+2026-03-17 14:00:24,075 [INFO] bi_copilot - Shutdown: cleaning up.
+2026-03-17 14:00:27,587 [INFO] bi_copilot - Logging initialized
+2026-03-17 14:00:27,598 [INFO] bi_copilot - Startup: warming schema cache …
+2026-03-17 14:00:27,598 [INFO] bi_copilot - Schema cache miss — fetching schema from database …
+2026-03-17 14:00:36,858 [INFO] bi_copilot - Schema cached successfully (7416 chars).
+2026-03-17 14:00:36,859 [INFO] bi_copilot - Startup: schema cache ready.
+2026-03-17 14:04:36,303 [INFO] bi_copilot - Shutdown: cleaning up.
+2026-03-17 14:04:39,769 [INFO] bi_copilot - Logging initialized
+2026-03-17 14:04:39,775 [INFO] bi_copilot - Startup: warming schema cache …
+2026-03-17 14:04:39,775 [INFO] bi_copilot - Schema cache miss — fetching schema from database …
+2026-03-17 14:04:48,572 [INFO] bi_copilot - Schema cached successfully (7416 chars).
+2026-03-17 14:04:48,573 [INFO] bi_copilot - Startup: schema cache ready.
+2026-03-17 14:11:55,673 [INFO] bi_copilot - Shutdown: cleaning up.
+2026-03-17 14:12:01,156 [INFO] bi_copilot - Logging initialized
+2026-03-17 14:12:01,188 [INFO] bi_copilot - Startup: warming schema cache …
+2026-03-17 14:12:01,188 [INFO] bi_copilot - Schema cache miss — fetching schema from database …
+2026-03-17 14:12:10,303 [INFO] bi_copilot - Schema cached successfully (7416 chars).
+2026-03-17 14:12:10,304 [INFO] bi_copilot - Startup: schema cache ready.
+2026-03-17 15:40:07,829 [INFO] bi_copilot - Shutdown: cleaning up.
+2026-03-17 15:40:11,839 [INFO] bi_copilot - Logging initialized
+2026-03-17 15:40:11,850 [INFO] bi_copilot - Startup: warming schema cache …
+2026-03-17 15:40:11,852 [INFO] bi_copilot - Schema cache miss — fetching schema from database …
+2026-03-17 15:40:23,536 [INFO] bi_copilot - Schema cached successfully (7416 chars).
+2026-03-17 15:40:23,536 [INFO] bi_copilot - Startup: schema cache ready.
+2026-03-17 15:40:50,634 [ERROR] bi_copilot - Unhandled exception: (psycopg2.errors.UndefinedColumn) column "role" does not exist
+LINE 1: SELECT role FROM users WHERE email = 'usmanashraf4360@gmail....
+               ^
+
+[SQL: SELECT role FROM users WHERE email = %(email)s]
+[parameters: {'email': 'usmanashraf4360@gmail.com'}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+Traceback (most recent call last):
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.UndefinedColumn: column "role" does not exist
+LINE 1: SELECT role FROM users WHERE email = 'usmanashraf4360@gmail....
+               ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\middleware\cors.py", line 93, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\middleware\cors.py", line 144, in simple_response
+    await self.app(scope, receive, send)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\routing.py", line 736, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\routing.py", line 290, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\fastapi\routing.py", line 115, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\fastapi\routing.py", line 101, in app
+    response = await f(request)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\fastapi\routing.py", line 345, in app
+    solved_result = await solve_dependencies(
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\fastapi\dependencies\utils.py", line 645, in solve_dependencies
+    solved = await run_in_threadpool(call, **solved_result.values)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\concurrency.py", line 38, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\anyio\to_thread.py", line 56, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\anyio\_backends\_asyncio.py", line 2476, in run_sync_in_worker_thread
+    return await future
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\anyio\_backends\_asyncio.py", line 967, in run
+    result = context.run(func, *args)
+  File "C:\Users\lenovo\Documents\Project\AI_copilot\BI-Copliot\backend\auth\router.py", line 97, in get_current_user
+    row = conn.execute(
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\engine\base.py", line 1419, in execute
+    return meth(
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\sql\elements.py", line 527, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\engine\base.py", line 1641, in _execute_clauseelement
+    ret = self._execute_context(
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\engine\base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\engine\base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\engine\base.py", line 2363, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.ProgrammingError: (psycopg2.errors.UndefinedColumn) column "role" does not exist
+LINE 1: SELECT role FROM users WHERE email = 'usmanashraf4360@gmail....
+               ^
+
+[SQL: SELECT role FROM users WHERE email = %(email)s]
+[parameters: {'email': 'usmanashraf4360@gmail.com'}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2026-03-17 15:40:51,203 [ERROR] bi_copilot - Unhandled exception: (psycopg2.errors.UndefinedColumn) column "role" does not exist
+LINE 1: SELECT role FROM users WHERE email = 'usmanashraf4360@gmail....
+               ^
+
+[SQL: SELECT role FROM users WHERE email = %(email)s]
+[parameters: {'email': 'usmanashraf4360@gmail.com'}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+Traceback (most recent call last):
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.UndefinedColumn: column "role" does not exist
+LINE 1: SELECT role FROM users WHERE email = 'usmanashraf4360@gmail....
+               ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\middleware\cors.py", line 93, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\middleware\cors.py", line 144, in simple_response
+    await self.app(scope, receive, send)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\routing.py", line 736, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\routing.py", line 290, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\fastapi\routing.py", line 115, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\fastapi\routing.py", line 101, in app
+    response = await f(request)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\fastapi\routing.py", line 345, in app
+    solved_result = await solve_dependencies(
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\fastapi\dependencies\utils.py", line 645, in solve_dependencies
+    solved = await run_in_threadpool(call, **solved_result.values)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\concurrency.py", line 38, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\anyio\to_thread.py", line 56, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\anyio\_backends\_asyncio.py", line 2476, in run_sync_in_worker_thread
+    return await future
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\anyio\_backends\_asyncio.py", line 967, in run
+    result = context.run(func, *args)
+  File "C:\Users\lenovo\Documents\Project\AI_copilot\BI-Copliot\backend\auth\router.py", line 97, in get_current_user
+    row = conn.execute(
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\engine\base.py", line 1419, in execute
+    return meth(
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\sql\elements.py", line 527, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\engine\base.py", line 1641, in _execute_clauseelement
+    ret = self._execute_context(
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\engine\base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\engine\base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\engine\base.py", line 2363, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.ProgrammingError: (psycopg2.errors.UndefinedColumn) column "role" does not exist
+LINE 1: SELECT role FROM users WHERE email = 'usmanashraf4360@gmail....
+               ^
+
+[SQL: SELECT role FROM users WHERE email = %(email)s]
+[parameters: {'email': 'usmanashraf4360@gmail.com'}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2026-03-17 15:40:51,367 [ERROR] bi_copilot - Unhandled exception: (psycopg2.errors.UndefinedColumn) column "role" does not exist
+LINE 1: SELECT role FROM users WHERE email = 'usmanashraf4360@gmail....
+               ^
+
+[SQL: SELECT role FROM users WHERE email = %(email)s]
+[parameters: {'email': 'usmanashraf4360@gmail.com'}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+Traceback (most recent call last):
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.UndefinedColumn: column "role" does not exist
+LINE 1: SELECT role FROM users WHERE email = 'usmanashraf4360@gmail....
+               ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\middleware\cors.py", line 93, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\middleware\cors.py", line 144, in simple_response
+    await self.app(scope, receive, send)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\routing.py", line 736, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\routing.py", line 290, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\fastapi\routing.py", line 115, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\fastapi\routing.py", line 101, in app
+    response = await f(request)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\fastapi\routing.py", line 345, in app
+    solved_result = await solve_dependencies(
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\fastapi\dependencies\utils.py", line 645, in solve_dependencies
+    solved = await run_in_threadpool(call, **solved_result.values)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\concurrency.py", line 38, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\anyio\to_thread.py", line 56, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\anyio\_backends\_asyncio.py", line 2476, in run_sync_in_worker_thread
+    return await future
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\anyio\_backends\_asyncio.py", line 967, in run
+    result = context.run(func, *args)
+  File "C:\Users\lenovo\Documents\Project\AI_copilot\BI-Copliot\backend\auth\router.py", line 97, in get_current_user
+    row = conn.execute(
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\engine\base.py", line 1419, in execute
+    return meth(
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\sql\elements.py", line 527, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\engine\base.py", line 1641, in _execute_clauseelement
+    ret = self._execute_context(
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\engine\base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\engine\base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\engine\base.py", line 2363, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.ProgrammingError: (psycopg2.errors.UndefinedColumn) column "role" does not exist
+LINE 1: SELECT role FROM users WHERE email = 'usmanashraf4360@gmail....
+               ^
+
+[SQL: SELECT role FROM users WHERE email = %(email)s]
+[parameters: {'email': 'usmanashraf4360@gmail.com'}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2026-03-17 15:40:51,534 [ERROR] bi_copilot - Unhandled exception: (psycopg2.errors.UndefinedColumn) column "role" does not exist
+LINE 1: SELECT role FROM users WHERE email = 'usmanashraf4360@gmail....
+               ^
+
+[SQL: SELECT role FROM users WHERE email = %(email)s]
+[parameters: {'email': 'usmanashraf4360@gmail.com'}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+Traceback (most recent call last):
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.UndefinedColumn: column "role" does not exist
+LINE 1: SELECT role FROM users WHERE email = 'usmanashraf4360@gmail....
+               ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\middleware\cors.py", line 93, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\middleware\cors.py", line 144, in simple_response
+    await self.app(scope, receive, send)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\routing.py", line 736, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\routing.py", line 290, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\fastapi\routing.py", line 115, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\fastapi\routing.py", line 101, in app
+    response = await f(request)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\fastapi\routing.py", line 345, in app
+    solved_result = await solve_dependencies(
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\fastapi\dependencies\utils.py", line 645, in solve_dependencies
+    solved = await run_in_threadpool(call, **solved_result.values)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\concurrency.py", line 38, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\anyio\to_thread.py", line 56, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\anyio\_backends\_asyncio.py", line 2476, in run_sync_in_worker_thread
+    return await future
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\anyio\_backends\_asyncio.py", line 967, in run
+    result = context.run(func, *args)
+  File "C:\Users\lenovo\Documents\Project\AI_copilot\BI-Copliot\backend\auth\router.py", line 97, in get_current_user
+    row = conn.execute(
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\engine\base.py", line 1419, in execute
+    return meth(
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\sql\elements.py", line 527, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\engine\base.py", line 1641, in _execute_clauseelement
+    ret = self._execute_context(
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\engine\base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\engine\base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\engine\base.py", line 2363, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.ProgrammingError: (psycopg2.errors.UndefinedColumn) column "role" does not exist
+LINE 1: SELECT role FROM users WHERE email = 'usmanashraf4360@gmail....
+               ^
+
+[SQL: SELECT role FROM users WHERE email = %(email)s]
+[parameters: {'email': 'usmanashraf4360@gmail.com'}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2026-03-17 15:40:51,726 [ERROR] bi_copilot - Unhandled exception: (psycopg2.errors.UndefinedColumn) column "role" does not exist
+LINE 1: SELECT role FROM users WHERE email = 'usmanashraf4360@gmail....
+               ^
+
+[SQL: SELECT role FROM users WHERE email = %(email)s]
+[parameters: {'email': 'usmanashraf4360@gmail.com'}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+Traceback (most recent call last):
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.UndefinedColumn: column "role" does not exist
+LINE 1: SELECT role FROM users WHERE email = 'usmanashraf4360@gmail....
+               ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\middleware\cors.py", line 93, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\middleware\cors.py", line 144, in simple_response
+    await self.app(scope, receive, send)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\routing.py", line 736, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\routing.py", line 290, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\fastapi\routing.py", line 115, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\fastapi\routing.py", line 101, in app
+    response = await f(request)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\fastapi\routing.py", line 345, in app
+    solved_result = await solve_dependencies(
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\fastapi\dependencies\utils.py", line 645, in solve_dependencies
+    solved = await run_in_threadpool(call, **solved_result.values)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\concurrency.py", line 38, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\anyio\to_thread.py", line 56, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\anyio\_backends\_asyncio.py", line 2476, in run_sync_in_worker_thread
+    return await future
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\anyio\_backends\_asyncio.py", line 967, in run
+    result = context.run(func, *args)
+  File "C:\Users\lenovo\Documents\Project\AI_copilot\BI-Copliot\backend\auth\router.py", line 97, in get_current_user
+    row = conn.execute(
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\engine\base.py", line 1419, in execute
+    return meth(
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\sql\elements.py", line 527, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\engine\base.py", line 1641, in _execute_clauseelement
+    ret = self._execute_context(
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\engine\base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\engine\base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\engine\base.py", line 2363, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.ProgrammingError: (psycopg2.errors.UndefinedColumn) column "role" does not exist
+LINE 1: SELECT role FROM users WHERE email = 'usmanashraf4360@gmail....
+               ^
+
+[SQL: SELECT role FROM users WHERE email = %(email)s]
+[parameters: {'email': 'usmanashraf4360@gmail.com'}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2026-03-17 15:40:51,905 [ERROR] bi_copilot - Unhandled exception: (psycopg2.errors.UndefinedColumn) column "role" does not exist
+LINE 1: SELECT role FROM users WHERE email = 'usmanashraf4360@gmail....
+               ^
+
+[SQL: SELECT role FROM users WHERE email = %(email)s]
+[parameters: {'email': 'usmanashraf4360@gmail.com'}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+Traceback (most recent call last):
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.UndefinedColumn: column "role" does not exist
+LINE 1: SELECT role FROM users WHERE email = 'usmanashraf4360@gmail....
+               ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\middleware\cors.py", line 93, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\middleware\cors.py", line 144, in simple_response
+    await self.app(scope, receive, send)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\routing.py", line 736, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\routing.py", line 290, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\fastapi\routing.py", line 115, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\fastapi\routing.py", line 101, in app
+    response = await f(request)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\fastapi\routing.py", line 345, in app
+    solved_result = await solve_dependencies(
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\fastapi\dependencies\utils.py", line 645, in solve_dependencies
+    solved = await run_in_threadpool(call, **solved_result.values)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\concurrency.py", line 38, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\anyio\to_thread.py", line 56, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\anyio\_backends\_asyncio.py", line 2476, in run_sync_in_worker_thread
+    return await future
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\anyio\_backends\_asyncio.py", line 967, in run
+    result = context.run(func, *args)
+  File "C:\Users\lenovo\Documents\Project\AI_copilot\BI-Copliot\backend\auth\router.py", line 97, in get_current_user
+    row = conn.execute(
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\engine\base.py", line 1419, in execute
+    return meth(
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\sql\elements.py", line 527, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\engine\base.py", line 1641, in _execute_clauseelement
+    ret = self._execute_context(
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\engine\base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\engine\base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\engine\base.py", line 2363, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.ProgrammingError: (psycopg2.errors.UndefinedColumn) column "role" does not exist
+LINE 1: SELECT role FROM users WHERE email = 'usmanashraf4360@gmail....
+               ^
+
+[SQL: SELECT role FROM users WHERE email = %(email)s]
+[parameters: {'email': 'usmanashraf4360@gmail.com'}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2026-03-17 15:40:51,924 [ERROR] bi_copilot - Unhandled exception: (psycopg2.errors.UndefinedColumn) column "role" does not exist
+LINE 1: SELECT role FROM users WHERE email = 'usmanashraf4360@gmail....
+               ^
+
+[SQL: SELECT role FROM users WHERE email = %(email)s]
+[parameters: {'email': 'usmanashraf4360@gmail.com'}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+Traceback (most recent call last):
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.UndefinedColumn: column "role" does not exist
+LINE 1: SELECT role FROM users WHERE email = 'usmanashraf4360@gmail....
+               ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\middleware\cors.py", line 93, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\middleware\cors.py", line 144, in simple_response
+    await self.app(scope, receive, send)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\routing.py", line 736, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\routing.py", line 290, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\fastapi\routing.py", line 115, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\fastapi\routing.py", line 101, in app
+    response = await f(request)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\fastapi\routing.py", line 345, in app
+    solved_result = await solve_dependencies(
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\fastapi\dependencies\utils.py", line 645, in solve_dependencies
+    solved = await run_in_threadpool(call, **solved_result.values)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\concurrency.py", line 38, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\anyio\to_thread.py", line 56, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\anyio\_backends\_asyncio.py", line 2476, in run_sync_in_worker_thread
+    return await future
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\anyio\_backends\_asyncio.py", line 967, in run
+    result = context.run(func, *args)
+  File "C:\Users\lenovo\Documents\Project\AI_copilot\BI-Copliot\backend\auth\router.py", line 97, in get_current_user
+    row = conn.execute(
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\engine\base.py", line 1419, in execute
+    return meth(
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\sql\elements.py", line 527, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\engine\base.py", line 1641, in _execute_clauseelement
+    ret = self._execute_context(
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\engine\base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\engine\base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\engine\base.py", line 2363, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.ProgrammingError: (psycopg2.errors.UndefinedColumn) column "role" does not exist
+LINE 1: SELECT role FROM users WHERE email = 'usmanashraf4360@gmail....
+               ^
+
+[SQL: SELECT role FROM users WHERE email = %(email)s]
+[parameters: {'email': 'usmanashraf4360@gmail.com'}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2026-03-17 15:40:52,493 [ERROR] bi_copilot - Unhandled exception: (psycopg2.errors.UndefinedColumn) column "role" does not exist
+LINE 1: SELECT role FROM users WHERE email = 'usmanashraf4360@gmail....
+               ^
+
+[SQL: SELECT role FROM users WHERE email = %(email)s]
+[parameters: {'email': 'usmanashraf4360@gmail.com'}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+Traceback (most recent call last):
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.UndefinedColumn: column "role" does not exist
+LINE 1: SELECT role FROM users WHERE email = 'usmanashraf4360@gmail....
+               ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\middleware\cors.py", line 93, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\middleware\cors.py", line 144, in simple_response
+    await self.app(scope, receive, send)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\routing.py", line 736, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\routing.py", line 290, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\fastapi\routing.py", line 115, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\fastapi\routing.py", line 101, in app
+    response = await f(request)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\fastapi\routing.py", line 345, in app
+    solved_result = await solve_dependencies(
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\fastapi\dependencies\utils.py", line 645, in solve_dependencies
+    solved = await run_in_threadpool(call, **solved_result.values)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\concurrency.py", line 38, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\anyio\to_thread.py", line 56, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\anyio\_backends\_asyncio.py", line 2476, in run_sync_in_worker_thread
+    return await future
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\anyio\_backends\_asyncio.py", line 967, in run
+    result = context.run(func, *args)
+  File "C:\Users\lenovo\Documents\Project\AI_copilot\BI-Copliot\backend\auth\router.py", line 97, in get_current_user
+    row = conn.execute(
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\engine\base.py", line 1419, in execute
+    return meth(
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\sql\elements.py", line 527, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\engine\base.py", line 1641, in _execute_clauseelement
+    ret = self._execute_context(
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\engine\base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\engine\base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\engine\base.py", line 2363, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.ProgrammingError: (psycopg2.errors.UndefinedColumn) column "role" does not exist
+LINE 1: SELECT role FROM users WHERE email = 'usmanashraf4360@gmail....
+               ^
+
+[SQL: SELECT role FROM users WHERE email = %(email)s]
+[parameters: {'email': 'usmanashraf4360@gmail.com'}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2026-03-17 15:40:52,651 [ERROR] bi_copilot - Unhandled exception: (psycopg2.errors.UndefinedColumn) column "role" does not exist
+LINE 1: SELECT role FROM users WHERE email = 'usmanashraf4360@gmail....
+               ^
+
+[SQL: SELECT role FROM users WHERE email = %(email)s]
+[parameters: {'email': 'usmanashraf4360@gmail.com'}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+Traceback (most recent call last):
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.UndefinedColumn: column "role" does not exist
+LINE 1: SELECT role FROM users WHERE email = 'usmanashraf4360@gmail....
+               ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\middleware\cors.py", line 93, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\middleware\cors.py", line 144, in simple_response
+    await self.app(scope, receive, send)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\routing.py", line 736, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\routing.py", line 290, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\fastapi\routing.py", line 115, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\fastapi\routing.py", line 101, in app
+    response = await f(request)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\fastapi\routing.py", line 345, in app
+    solved_result = await solve_dependencies(
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\fastapi\dependencies\utils.py", line 645, in solve_dependencies
+    solved = await run_in_threadpool(call, **solved_result.values)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\concurrency.py", line 38, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\anyio\to_thread.py", line 56, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\anyio\_backends\_asyncio.py", line 2476, in run_sync_in_worker_thread
+    return await future
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\anyio\_backends\_asyncio.py", line 967, in run
+    result = context.run(func, *args)
+  File "C:\Users\lenovo\Documents\Project\AI_copilot\BI-Copliot\backend\auth\router.py", line 97, in get_current_user
+    row = conn.execute(
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\engine\base.py", line 1419, in execute
+    return meth(
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\sql\elements.py", line 527, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\engine\base.py", line 1641, in _execute_clauseelement
+    ret = self._execute_context(
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\engine\base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\engine\base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\engine\base.py", line 2363, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.ProgrammingError: (psycopg2.errors.UndefinedColumn) column "role" does not exist
+LINE 1: SELECT role FROM users WHERE email = 'usmanashraf4360@gmail....
+               ^
+
+[SQL: SELECT role FROM users WHERE email = %(email)s]
+[parameters: {'email': 'usmanashraf4360@gmail.com'}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2026-03-17 15:44:34,693 [INFO] bi_copilot - Shutdown: cleaning up.
+2026-03-17 15:44:38,347 [INFO] bi_copilot - Logging initialized
+2026-03-17 15:44:38,356 [INFO] bi_copilot - Startup: warming schema cache …
+2026-03-17 15:44:38,356 [INFO] bi_copilot - Schema cache miss — fetching schema from database …
+2026-03-17 15:44:50,128 [INFO] bi_copilot - Schema cached successfully (7476 chars).
+2026-03-17 15:44:50,128 [INFO] bi_copilot - Startup: schema cache ready.
+2026-03-17 15:50:19,376 [INFO] bi_copilot - Trace 1773744619376 — ingest_question: Production lines with lowest OEE this week
+2026-03-17 15:50:24,498 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-17 15:50:24,533 [INFO] bi_copilot - Trace 1773744619376 — fast_path_sql generated query in 3657.2 ms
+2026-03-17 15:50:24,545 [INFO] bi_copilot - Trace 1773744619376 — guardrail: 1 candidate(s), blocked=False
+2026-03-17 15:50:25,115 [ERROR] bi_copilot - Trace 1773744619376 — SQL execution error: Database error: (psycopg2.errors.SyntaxError) syntax error at or near "AS"
+LINE 1: ...AT / (units_produced + rejected_units)) * 100, 2) AS avg_oee...
+                                                             ^
+
+[SQL: SELECT machine_id, ROUND(AVG((units_produced::FLOAT / (units_produced + rejected_units)) * 100, 2) AS avg_oee_pct FROM machine_production_daily WHERE production_date >= DATE_TRUNC('week', CURRENT_DATE) GROUP BY machine_id ORDER BY avg_oee_pct ASC LIMIT 10;]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2026-03-17 15:50:27,823 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-17 15:50:27,830 [INFO] bi_copilot - Trace 1773744619376 — retry_sql produced corrected query in 2698.1 ms (retry #1)
+2026-03-17 15:50:28,463 [ERROR] bi_copilot - Trace 1773744619376 — SQL execution error: Database error: (psycopg2.errors.UndefinedFunction) function round(double precision, integer) does not exist
+LINE 1: SELECT machine_id, ROUND(AVG((units_produced::FLOAT / (units...
+                           ^
+HINT:  No function matches the given name and argument types. You might need to add explicit type casts.
+
+[SQL: SELECT machine_id, ROUND(AVG((units_produced::FLOAT / (units_produced + rejected_units)) * 100), 2) AS avg_oee_pct FROM machine_production_daily WHERE production_date >= DATE_TRUNC('week', CURRENT_DATE) GROUP BY machine_id ORDER BY avg_oee_pct ASC LIMIT 10;]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2026-03-17 15:50:30,331 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-17 15:50:30,340 [INFO] bi_copilot - Trace 1773744619376 — explanation added.
+2026-03-17 15:50:30,340 [INFO] bi_copilot - Trace 1773744619376 — run_agent complete. total_latency_ms=10978.05
+2026-03-17 15:50:31,195 [INFO] bi_copilot - Query log saved for user: usmanashraf4360@gmail.com
+2026-03-17 15:59:49,713 [INFO] bi_copilot - Shutdown: cleaning up.
+2026-03-17 16:00:09,359 [INFO] bi_copilot - Logging initialized
+2026-03-17 16:00:09,367 [INFO] bi_copilot - Startup: warming schema cache …
+2026-03-17 16:00:09,369 [INFO] bi_copilot - Schema cache miss — fetching schema from database …
+2026-03-17 16:00:18,465 [INFO] bi_copilot - Schema cached successfully (7871 chars).
+2026-03-17 16:00:18,465 [INFO] bi_copilot - Startup: schema cache ready.
+2026-03-17 16:00:31,036 [INFO] bi_copilot - Trace 1773745231036 — ingest_question: Production lines with lowest OEE this week
+2026-03-17 16:00:36,758 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-17 16:00:36,784 [INFO] bi_copilot - Trace 1773745231036 — fast_path_sql generated query in 3852.7 ms
+2026-03-17 16:00:36,784 [INFO] bi_copilot - Trace 1773745231036 — guardrail: 1 candidate(s), blocked=False
+2026-03-17 16:00:37,469 [INFO] bi_copilot - Trace 1773745231036 — SQL executed in 685.7 ms, 0 rows returned.
+2026-03-17 16:00:39,318 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-17 16:00:39,319 [INFO] bi_copilot - Trace 1773745231036 — explanation added.
+2026-03-17 16:00:39,319 [INFO] bi_copilot - Trace 1773745231036 — run_agent complete. total_latency_ms=8298.27
+2026-03-17 16:00:39,813 [INFO] bi_copilot - Query log saved for user: usmanashraf4360@gmail.com
+2026-03-17 16:13:54,399 [ERROR] bi_copilot - Unhandled exception: (psycopg2.OperationalError) could not translate host name "aws-1-ap-south-1.pooler.supabase.com" to address: Name or service not known
+
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+Traceback (most recent call last):
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\pool\base.py", line 1319, in _checkout
+    raise exc.InvalidatePoolError()
+sqlalchemy.exc.InvalidatePoolError: ()
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\engine\base.py", line 143, in __init__
+    self._dbapi_connection = engine.raw_connection()
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\engine\base.py", line 3317, in raw_connection
+    return self.pool.connect()
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\pool\base.py", line 448, in connect
+    return _ConnectionFairy._checkout(self)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\pool\base.py", line 1353, in _checkout
+    with util.safe_reraise():
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\util\langhelpers.py", line 121, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\pool\base.py", line 1350, in _checkout
+    fairy._connection_record.get_connection()
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\pool\base.py", line 837, in get_connection
+    self.__connect()
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\pool\base.py", line 900, in __connect
+    with util.safe_reraise():
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\util\langhelpers.py", line 121, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\pool\base.py", line 896, in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\engine\create.py", line 667, in connect
+    return dialect.connect(*cargs_tup, **cparams)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\engine\default.py", line 630, in connect
+    return self.loaded_dbapi.connect(*cargs, **cparams)  # type: ignore[no-any-return]  # NOQA: E501
+  File "C:\Users\lenovo\AppData\Roaming\Python\Python310\site-packages\psycopg2\__init__.py", line 135, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+psycopg2.OperationalError: could not translate host name "aws-1-ap-south-1.pooler.supabase.com" to address: Name or service not known
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\middleware\cors.py", line 93, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\middleware\cors.py", line 144, in simple_response
+    await self.app(scope, receive, send)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\routing.py", line 736, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\routing.py", line 290, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\fastapi\routing.py", line 115, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\fastapi\routing.py", line 101, in app
+    response = await f(request)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\fastapi\routing.py", line 355, in app
+    raw_response = await run_endpoint_function(
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\fastapi\routing.py", line 245, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\concurrency.py", line 38, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\anyio\to_thread.py", line 56, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\anyio\_backends\_asyncio.py", line 2476, in run_sync_in_worker_thread
+    return await future
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\anyio\_backends\_asyncio.py", line 967, in run
+    result = context.run(func, *args)
+  File "C:\Users\lenovo\Documents\Project\AI_copilot\BI-Copliot\backend\auth\router.py", line 69, in refresh_token
+    with engine.connect() as conn:
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\engine\base.py", line 3293, in connect
+    return self._connection_cls(self)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\engine\base.py", line 145, in __init__
+    Connection._handle_dbapi_exception_noconnection(
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\engine\base.py", line 2448, in _handle_dbapi_exception_noconnection
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\engine\base.py", line 143, in __init__
+    self._dbapi_connection = engine.raw_connection()
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\engine\base.py", line 3317, in raw_connection
+    return self.pool.connect()
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\pool\base.py", line 448, in connect
+    return _ConnectionFairy._checkout(self)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\pool\base.py", line 1353, in _checkout
+    with util.safe_reraise():
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\util\langhelpers.py", line 121, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\pool\base.py", line 1350, in _checkout
+    fairy._connection_record.get_connection()
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\pool\base.py", line 837, in get_connection
+    self.__connect()
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\pool\base.py", line 900, in __connect
+    with util.safe_reraise():
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\util\langhelpers.py", line 121, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\pool\base.py", line 896, in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\engine\create.py", line 667, in connect
+    return dialect.connect(*cargs_tup, **cparams)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\engine\default.py", line 630, in connect
+    return self.loaded_dbapi.connect(*cargs, **cparams)  # type: ignore[no-any-return]  # NOQA: E501
+  File "C:\Users\lenovo\AppData\Roaming\Python\Python310\site-packages\psycopg2\__init__.py", line 135, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+sqlalchemy.exc.OperationalError: (psycopg2.OperationalError) could not translate host name "aws-1-ap-south-1.pooler.supabase.com" to address: Name or service not known
+
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-03-17 16:13:54,521 [ERROR] bi_copilot - Unhandled exception: (psycopg2.OperationalError) could not translate host name "aws-1-ap-south-1.pooler.supabase.com" to address: Name or service not known
+
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+Traceback (most recent call last):
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\engine\base.py", line 143, in __init__
+    self._dbapi_connection = engine.raw_connection()
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\engine\base.py", line 3317, in raw_connection
+    return self.pool.connect()
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\pool\base.py", line 448, in connect
+    return _ConnectionFairy._checkout(self)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\pool\base.py", line 1272, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\pool\base.py", line 717, in checkout
+    with util.safe_reraise():
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\util\langhelpers.py", line 121, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\pool\base.py", line 715, in checkout
+    dbapi_connection = rec.get_connection()
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\pool\base.py", line 866, in get_connection
+    self.__connect()
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\pool\base.py", line 900, in __connect
+    with util.safe_reraise():
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\util\langhelpers.py", line 121, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\pool\base.py", line 896, in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\engine\create.py", line 667, in connect
+    return dialect.connect(*cargs_tup, **cparams)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\engine\default.py", line 630, in connect
+    return self.loaded_dbapi.connect(*cargs, **cparams)  # type: ignore[no-any-return]  # NOQA: E501
+  File "C:\Users\lenovo\AppData\Roaming\Python\Python310\site-packages\psycopg2\__init__.py", line 135, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+psycopg2.OperationalError: could not translate host name "aws-1-ap-south-1.pooler.supabase.com" to address: Name or service not known
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\middleware\cors.py", line 93, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\middleware\cors.py", line 144, in simple_response
+    await self.app(scope, receive, send)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\routing.py", line 736, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\routing.py", line 290, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\fastapi\routing.py", line 115, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\fastapi\routing.py", line 101, in app
+    response = await f(request)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\fastapi\routing.py", line 355, in app
+    raw_response = await run_endpoint_function(
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\fastapi\routing.py", line 245, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\starlette\concurrency.py", line 38, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\anyio\to_thread.py", line 56, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\anyio\_backends\_asyncio.py", line 2476, in run_sync_in_worker_thread
+    return await future
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\anyio\_backends\_asyncio.py", line 967, in run
+    result = context.run(func, *args)
+  File "C:\Users\lenovo\Documents\Project\AI_copilot\BI-Copliot\backend\auth\router.py", line 69, in refresh_token
+    with engine.connect() as conn:
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\engine\base.py", line 3293, in connect
+    return self._connection_cls(self)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\engine\base.py", line 145, in __init__
+    Connection._handle_dbapi_exception_noconnection(
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\engine\base.py", line 2448, in _handle_dbapi_exception_noconnection
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\engine\base.py", line 143, in __init__
+    self._dbapi_connection = engine.raw_connection()
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\engine\base.py", line 3317, in raw_connection
+    return self.pool.connect()
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\pool\base.py", line 448, in connect
+    return _ConnectionFairy._checkout(self)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\pool\base.py", line 1272, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\pool\base.py", line 717, in checkout
+    with util.safe_reraise():
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\util\langhelpers.py", line 121, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\pool\base.py", line 715, in checkout
+    dbapi_connection = rec.get_connection()
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\pool\base.py", line 866, in get_connection
+    self.__connect()
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\pool\base.py", line 900, in __connect
+    with util.safe_reraise():
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\util\langhelpers.py", line 121, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\pool\base.py", line 896, in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\engine\create.py", line 667, in connect
+    return dialect.connect(*cargs_tup, **cparams)
+  File "C:\Users\lenovo\anaconda3\envs\ai_coliot\lib\site-packages\sqlalchemy\engine\default.py", line 630, in connect
+    return self.loaded_dbapi.connect(*cargs, **cparams)  # type: ignore[no-any-return]  # NOQA: E501
+  File "C:\Users\lenovo\AppData\Roaming\Python\Python310\site-packages\psycopg2\__init__.py", line 135, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+sqlalchemy.exc.OperationalError: (psycopg2.OperationalError) could not translate host name "aws-1-ap-south-1.pooler.supabase.com" to address: Name or service not known
+
+(Background on this error at: https://sqlalche.me/e/20/e3q8)

@@ -1,272 +1,198 @@
+import axios from "axios";
 import React, { useState } from 'react';
 import { Line, Bar, Pie } from 'react-chartjs-2';
 import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  BarElement,
-  ArcElement,
-  Title,
-  Tooltip,
-  Legend,
-  Filler,
+  Chart as ChartJS, CategoryScale, LinearScale, PointElement,
+  LineElement, BarElement, ArcElement, Title, Tooltip, Legend, Filler,
 } from 'chart.js';
+import { useNavigate } from "react-router-dom";   // ✅ import stays here
+import { useAuth } from "./context/AuthContext";   // ✅ moved to top
 
 ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  BarElement,
-  ArcElement,
-  Title,
-  Tooltip,
-  Legend,
-  Filler
+  CategoryScale, LinearScale, PointElement, LineElement,
+  BarElement, ArcElement, Title, Tooltip, Legend, Filler
 );
 
-const API_BASE = 'https://bi-copliot-production.up.railway.app';
+const API_BASE = import.meta.env.VITE_API_BASE || 'http://localhost:8000';
 
-// Simple SVG Icons
+// ---------------------------------------------------------------------------
+// SVG icon set
+// ---------------------------------------------------------------------------
 const Icons = {
   Play: () => (
     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-    </svg>
-  ),
-  Database: () => (
-    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" />
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+        d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+        d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
     </svg>
   ),
   CheckCircle: () => (
     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
     </svg>
   ),
   XCircle: () => (
     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
-    </svg>
-  ),
-  AlertCircle: () => (
-    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+        d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
     </svg>
   ),
   Loader: () => (
     <svg className="w-5 h-5 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+        d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
     </svg>
   ),
   BarChart: () => (
     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+        d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
     </svg>
   ),
-  TrendingUp: () => (
+  Factory: () => (
     <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-    </svg>
-  ),
-  Activity: () => (
-    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-    </svg>
-  ),
-  FileText: () => (
-    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-    </svg>
-  ),
-  Shield: () => (
-    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+        d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
     </svg>
   ),
   Clock: () => (
     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+        d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+    </svg>
+  ),
+  Shield: () => (
+    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+        d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
     </svg>
   ),
 };
 
-// 📊 DataChart Component - Renders Chart.js visualizations
+// ---------------------------------------------------------------------------
+// Suggested manufacturing questions
+// ---------------------------------------------------------------------------
+const QUICK_QUESTIONS = [
+  'Machine downtime by day for the last 30 days',
+  'Production lines with lowest OEE this week',
+  'Inventory items below reorder point',
+  'On-time delivery rate by customer this month',
+  'Top 10 work orders by cycle time',
+];
+
+// ---------------------------------------------------------------------------
+// Chart renderer
+// ---------------------------------------------------------------------------
 const DataChart = ({ chartSpec }) => {
-  if (!chartSpec || !chartSpec.chart_type) return null;
-
+  if (!chartSpec?.chart_type) return null;
   const { chart_type, labels, datasets } = chartSpec;
+  const chartData = { labels, datasets };
 
-  const chartData = {
-    labels,
-    datasets,
-  };
-
-  const options = {
+  const baseOptions = {
     responsive: true,
     maintainAspectRatio: false,
-    plugins: {
-      legend: {
-        position: 'top',
-      },
-      title: {
-        display: false,
-      },
-    },
-    scales: chart_type !== 'pie' ? {
-      y: {
-        beginAtZero: true,
-      },
-    } : undefined,
+    plugins: { legend: { position: 'top' }, title: { display: false } },
+    scales: chart_type !== 'pie' ? { y: { beginAtZero: true } } : undefined,
   };
 
-  const areaOptions = {
-    ...options,
-    elements: {
-      line: {
-        tension: 0.4,
-      },
-    },
-    plugins: {
-      ...options.plugins,
-      filler: {
-        propagate: true,
-      },
-    },
-  };
-
-  // Add fill configuration for area charts
   if (chart_type === 'area') {
-    chartData.datasets = chartData.datasets.map(ds => ({
-      ...ds,
-      fill: true,
-    }));
+    chartData.datasets = chartData.datasets.map(ds => ({ ...ds, fill: true }));
   }
 
   const renderChart = () => {
     switch (chart_type) {
-      case 'bar':
-        return <Bar data={chartData} options={options} />;
-      case 'line':
-        return <Line data={chartData} options={options} />;
-      case 'area':
-        return <Line data={chartData} options={areaOptions} />;
-      case 'pie':
-        return <Pie data={chartData} options={options} />;
-      default:
-        return <div className="text-gray-500">Unknown chart type: {chart_type}</div>;
+      case 'bar':   return <Bar  data={chartData} options={baseOptions} />;
+      case 'line':  return <Line data={chartData} options={baseOptions} />;
+      case 'area':  return <Line data={chartData} options={{ ...baseOptions, elements: { line: { tension: 0.4 } } }} />;
+      case 'pie':   return <Pie  data={chartData} options={baseOptions} />;
+      default:      return <p className="text-gray-500">Unknown chart type: {chart_type}</p>;
     }
   };
 
   return (
     <div className="bg-white rounded-lg p-6 border border-gray-200">
       <div className="flex items-center gap-2 mb-4">
-        <div className="text-purple-600">
-          <Icons.BarChart />
-        </div>
+        <span className="text-purple-600"><Icons.BarChart /></span>
         <h3 className="text-lg font-bold text-gray-800">
           {chart_type.charAt(0).toUpperCase() + chart_type.slice(1)} Chart
         </h3>
       </div>
-      <div style={{ height: '400px' }}>
-        {renderChart()}
-      </div>
+      <div style={{ height: '380px' }}>{renderChart()}</div>
     </div>
   );
 };
 
-const BICopilot = () => {
+// ---------------------------------------------------------------------------
+// Stat card
+// ---------------------------------------------------------------------------
+const StatCard = ({ icon, label, value, colorClass }) => (
+  <div className={`rounded-lg p-4 border ${colorClass}`}>
+    <div className="flex items-center gap-2 mb-1">
+      {icon}
+      <span className="text-xs font-semibold uppercase tracking-wide">{label}</span>
+    </div>
+    <div className="text-2xl font-bold">{value}</div>
+  </div>
+);
+
+// ---------------------------------------------------------------------------
+// Main component
+// ---------------------------------------------------------------------------
+const ManufacturingCopilot = () => {
+  const { token, logout } = useAuth();
+  const navigate = useNavigate();   // ✅ moved INSIDE the component
   const [question, setQuestion] = useState('');
   const [response, setResponse] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
-  const [metrics, setMetrics] = useState(null);
-  const [activeTab, setActiveTab] = useState('query');
+  const [loading, setLoading]   = useState(false);
+  const [error, setError]       = useState('');
+  // rest of your code unchanged...
 
-  const callApi = async (endpoint) => {
-    setLoading(true);
-    setError('');
-    try {
-      if (endpoint === 'nl2sql') {
-        const res = await fetch(`${API_BASE}/agent/nl2sql`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ question })
-        });
-        const data = await res.json();
-        if (!res.ok) throw new Error(data.detail || 'Query failed');
-        setResponse(data);
-        setActiveTab('results');
-      } else if (endpoint === 'evaluate') {
-        const res = await fetch(`${API_BASE}/agent/evaluate`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ split: 'test' })
-        });
-        const data = await res.json();
-        if (!res.ok) throw new Error(data.detail || 'Evaluation failed');
-        setMetrics(data.metrics);
-        setActiveTab('metrics');
-      } else if (endpoint === 'schema_drift') {
-        const res = await fetch(`${API_BASE}/agent/schema_drift_eval`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' }
-        });
-        const data = await res.json();
-        if (!res.ok) throw new Error(data.detail || 'Schema drift evaluation failed');
-        setMetrics({
-          'baseline.answer_set_exact_match': data.baseline.answer_set_exact_match,
-          'drift.answer_set_exact_match': data.drift.answer_set_exact_match,
-          'delta_asem': data.delta_asem
-        });
-        setActiveTab('metrics');
-      } else if (endpoint === 'safety') {
-        const res = await fetch(`${API_BASE}/agent/safety_eval`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' }
-        });
-        const data = await res.json();
-        if (!res.ok) throw new Error(data.detail || 'Safety evaluation failed');
-        setMetrics({
-          guardrail_rate: data.guardrail_rate,
-          total_dangerous: data.total_dangerous,
-          blocked_dangerous: data.blocked_dangerous
-        });
-        setActiveTab('metrics');
-      }
-    } catch (e) {
-      console.error(e);
-      setError(e.message || 'An error occurred');
-    } finally {
-      setLoading(false);
-    }
+  const runQuery = async () => {
+  if (!question.trim()) return;
+  setLoading(true);
+  setError('');
+  setResponse(null);
+  try {
+    const res = await axios.post(
+      "http://127.0.0.1:8000/agent/nl2sql",  // ✅ full URL, no /api prefix
+      { question },
+      { headers: { Authorization: `Bearer ${token}` } }
+    );
+    setResponse(res.data);  // ✅ axios uses res.data, not res.json()
+  } catch (e) {
+    // ✅ axios errors come from e.response
+    setError(e.response?.data?.detail || e.message || 'An unexpected error occurred.');
+  } finally {
+    setLoading(false);
+  }
+};
+
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter' && e.ctrlKey && !loading) runQuery();
   };
 
   const renderTable = () => {
-    if (!response?.candidates?.length) return null;
-    const best = response.candidates.find((c) => c.success) || response.candidates[0];
-    if (!best || !best.preview_rows || !best.columns) return null;
-
+    const r = response?.result;
+    if (!r?.success || !r.preview_rows?.length) return null;
     return (
-      <div className="overflow-x-auto">
+      <div className="overflow-x-auto rounded-lg border border-gray-200">
         <table className="w-full border-collapse">
           <thead>
-            <tr className="bg-gradient-to-r from-blue-50 to-purple-50">
-              {best.columns.map((c, idx) => (
-                <th key={idx} className="px-4 py-3 text-left text-sm font-semibold text-gray-700 border-b-2 border-blue-200">
+            <tr className="bg-gradient-to-r from-blue-50 to-indigo-50">
+              {r.columns.map((c, i) => (
+                <th key={i} className="px-4 py-3 text-left text-sm font-semibold text-gray-700 border-b-2 border-indigo-200">
                   {c}
                 </th>
               ))}
             </tr>
           </thead>
           <tbody>
-            {best.preview_rows.map((row, i) => (
-              <tr key={i} className={i % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
-                {row.map((v, j) => (
-                  <td key={j} className="px-4 py-3 text-sm text-gray-700 border-b border-gray-200">
+            {r.preview_rows.map((row, ri) => (
+              <tr key={ri} className={ri % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
+                {row.map((v, ci) => (
+                  <td key={ci} className="px-4 py-2 text-sm text-gray-700 border-b border-gray-100">
                     {String(v)}
                   </td>
                 ))}
@@ -274,249 +200,162 @@ const BICopilot = () => {
             ))}
           </tbody>
         </table>
+        <p className="text-xs text-gray-400 px-4 py-2">
+          Showing up to 20 rows · Query time {response.tfr_ms.toFixed(1)} ms
+        </p>
       </div>
     );
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 p-8">
-      <div className="max-w-7xl mx-auto">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50 p-8">
+      <div className="max-w-6xl mx-auto">
+
         {/* Header */}
-        <div className="text-center mb-8">
-          <div className="flex items-center justify-center gap-3 mb-4">
-            <div className="w-12 h-12 text-blue-600">
-              <Icons.TrendingUp />
-            </div>
-            <h1 className="text-4xl font-bold text-gray-800">Texo AI Copilot Agent</h1>
+        <div className="text-center mb-10">
+          <div className="flex items-center justify-center gap-3 mb-3">
+            <span className="text-blue-700"><Icons.Factory /></span>
+            <h1 className="text-4xl font-extrabold text-gray-900 tracking-tight">
+              Manufacturing BI Copilot
+            </h1>
           </div>
-          <p className="text-gray-600">Natural language to SQL with LangChain + LangGraph + OpenAI</p>
+          <p className="text-gray-500 text-sm">
+            Ask questions about production, downtime, inventory &amp; fulfilment in plain English
+          </p>
+        </div>
+        <div className="flex items-center justify-center gap-3 mt-4">
+          <button
+            onClick={() => navigate("/dashboard")}
+            className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold px-5 py-2 rounded-xl transition-colors"
+          >
+            <Icons.BarChart /> Dashboard
+          </button>
+          <button
+            onClick={() => { logout(); navigate("/login"); }}
+            className="text-sm text-gray-400 hover:text-red-500 border border-gray-200 hover:border-red-300 px-5 py-2 rounded-xl transition-colors"
+          >
+            Logout
+          </button>
         </div>
 
-        
-
-        {/* Error Display */}
+        {/* Error banner */}
         {error && (
           <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg flex items-center gap-3">
-            <div className="text-red-600">
-              <Icons.XCircle />
-            </div>
-            <p className="text-red-800 flex-1">{error}</p>
-            <button
-              onClick={() => setError('')}
-              className="text-red-600 hover:text-red-800 font-bold text-xl"
-            >
-              ×
-            </button>
+            <span className="text-red-500"><Icons.XCircle /></span>
+            <p className="text-red-800 flex-1 text-sm">{error}</p>
+            <button onClick={() => setError('')} className="text-red-500 font-bold text-lg leading-none">×</button>
           </div>
         )}
 
-        {/* Main Query Interface */}
-        <div className="bg-white rounded-xl shadow-lg p-8 mb-8">
-          <div className="flex items-center gap-3 mb-4">
-            <div className="text-blue-600">
-              <Icons.TrendingUp />
-            </div>
-            <h2 className="text-2xl font-bold text-gray-800">Ask Your Data</h2>
+        {/* Query box */}
+        <div className="bg-white rounded-2xl shadow-md p-8 mb-6 border border-gray-100">
+          <h2 className="text-xl font-bold text-gray-800 mb-4">Ask Your Operations Data</h2>
+
+          {/* Quick-pick buttons */}
+          <div className="flex flex-wrap gap-2 mb-4">
+            {QUICK_QUESTIONS.map((q) => (
+              <button
+                key={q}
+                onClick={() => setQuestion(q)}
+                className="text-xs bg-blue-50 hover:bg-blue-100 text-blue-700 px-3 py-1 rounded-full border border-blue-200 transition-colors"
+              >
+                {q}
+              </button>
+            ))}
           </div>
 
           <textarea
-            rows={4}
+            rows={3}
             value={question}
             onChange={(e) => setQuestion(e.target.value)}
-            onKeyPress={(e) => e.key === 'Enter' && e.ctrlKey && !loading && callApi('nl2sql')}
-            placeholder="e.g., Show me total sales by year, What are the top 5 customers by revenue, List all products with inventory below 100..."
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all mb-4"
+            onKeyDown={handleKeyDown}
+            placeholder="e.g. Show machine downtime by day for the last 30 days …   (Ctrl+Enter to run)"
+            className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-400 focus:border-transparent outline-none text-sm mb-4 resize-none"
             disabled={loading}
           />
 
-          <div className="flex flex-wrap gap-3">
-            <button
-              onClick={() => callApi('nl2sql')}
-              disabled={loading || !question.trim()}
-              className="flex-1 min-w-[200px] bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 disabled:from-gray-400 disabled:to-gray-500 text-white font-semibold py-3 px-6 rounded-lg transition-all flex items-center justify-center gap-2 shadow-md hover:shadow-lg"
-            >
-              {loading ? (
-                <>
-                  <Icons.Loader />
-                  Processing...
-                </>
-              ) : (
-                <>
-                  <Icons.Play />
-                  Run Query
-                </>
-              )}
-            </button>
-            <button
-              onClick={() => callApi('evaluate')}
-              disabled={loading}
-              className="bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 disabled:from-gray-400 disabled:to-gray-500 text-white font-semibold py-3 px-6 rounded-lg transition-all flex items-center justify-center gap-2 shadow-md hover:shadow-lg"
-            >
-              {loading ? <Icons.Loader /> : <Icons.BarChart />}
-              Evaluate
-            </button>
-            <button
-              onClick={() => callApi('schema_drift')}
-              disabled={loading}
-              className="bg-gradient-to-r from-orange-600 to-orange-700 hover:from-orange-700 hover:to-orange-800 disabled:from-gray-400 disabled:to-gray-500 text-white font-semibold py-3 px-6 rounded-lg transition-all flex items-center justify-center gap-2 shadow-md hover:shadow-lg"
-            >
-              {loading ? <Icons.Loader /> : <Icons.AlertCircle />}
-              Schema Drift
-            </button>
-            <button
-              onClick={() => callApi('safety')}
-              disabled={loading}
-              className="bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 disabled:from-gray-400 disabled:to-gray-500 text-white font-semibold py-3 px-6 rounded-lg transition-all flex items-center justify-center gap-2 shadow-md hover:shadow-lg"
-            >
-              {loading ? <Icons.Loader /> : <Icons.Shield />}
-              Safety Check
-            </button>
-          </div>
+          <button
+            onClick={runQuery}
+            disabled={loading || !question.trim()}
+            className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-300 text-white font-semibold py-3 px-8 rounded-xl transition-colors shadow-sm"
+          >
+            {loading ? <><Icons.Loader /> Analysing…</> : <><Icons.Play /> Run Query</>}
+          </button>
         </div>
 
-        {/* Tabs */}
-        {(response || metrics) && (
-          <div className="bg-white rounded-xl shadow-lg overflow-hidden">
-            <div className="border-b border-gray-200">
-              <nav className="flex">
-                {response && (
-                  <button
-                    onClick={() => setActiveTab('results')}
-                    className={`flex-1 px-6 py-4 text-sm font-semibold transition-colors ${
-                      activeTab === 'results'
-                        ? 'text-blue-600 border-b-2 border-blue-600 bg-blue-50'
-                        : 'text-gray-600 hover:text-gray-800 hover:bg-gray-50'
-                    }`}
-                  >
-                    <div className="flex items-center justify-center gap-2">
-                      <Icons.FileText />
-                      Query Results
-                    </div>
-                  </button>
-                )}
-                {metrics && (
-                  <button
-                    onClick={() => setActiveTab('metrics')}
-                    className={`flex-1 px-6 py-4 text-sm font-semibold transition-colors ${
-                      activeTab === 'metrics'
-                        ? 'text-purple-600 border-b-2 border-purple-600 bg-purple-50'
-                        : 'text-gray-600 hover:text-gray-800 hover:bg-gray-50'
-                    }`}
-                  >
-                    <div className="flex items-center justify-center gap-2">
-                      <Icons.BarChart />
-                      Metrics
-                    </div>
-                  </button>
-                )}
-              </nav>
+        {/* Results */}
+        {response && (
+          <div className="space-y-6">
+
+            {/* Safety warning */}
+            {response.safety_blocked && (
+              <div className="flex items-center gap-3 p-4 bg-yellow-50 border border-yellow-300 rounded-xl text-yellow-800 text-sm">
+                <Icons.Shield />
+                <span>One or more generated queries were blocked by the safety guardrail.</span>
+              </div>
+            )}
+
+            {/* Latency stats */}
+            <div className="grid grid-cols-3 gap-4">
+              <StatCard
+                icon={<span className="text-blue-600"><Icons.Clock /></span>}
+                label="LLM latency (TFT)"
+                value={`${response.tft_ms.toFixed(0)} ms`}
+                colorClass="bg-blue-50 border-blue-200 text-blue-900"
+              />
+              <StatCard
+                icon={<span className="text-indigo-600"><Icons.Clock /></span>}
+                label="DB latency (TFR)"
+                value={`${response.tfr_ms.toFixed(0)} ms`}
+                colorClass="bg-indigo-50 border-indigo-200 text-indigo-900"
+              />
+              <StatCard
+                icon={<span className="text-green-600"><Icons.CheckCircle /></span>}
+                label="Total latency"
+                value={`${response.total_latency_ms.toFixed(0)} ms`}
+                colorClass="bg-green-50 border-green-200 text-green-900"
+              />
             </div>
 
-            {/* Results Tab */}
-            {activeTab === 'results' && response && (
-              <div className="p-8">
-                
-
-                {/* Performance Metrics */}
-                <div className="grid grid-cols-3 gap-4 mb-6">
-                  <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg p-4 border border-blue-200">
-                    <div className="flex items-center gap-2 mb-2">
-                      <div className="text-blue-600">
-                        <Icons.Clock />
-                      </div>
-                      <span className="text-xs font-semibold text-blue-800">Time to First Token</span>
-                    </div>
-                    <div className="text-2xl font-bold text-blue-900">{response.tft_ms.toFixed(1)}ms</div>
-                  </div>
-                  <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-lg p-4 border border-purple-200">
-                    <div className="flex items-center gap-2 mb-2">
-                      <div className="text-purple-600">
-                        <Icons.Activity />
-                      </div>
-                      <span className="text-xs font-semibold text-purple-800">Time to First Result</span>
-                    </div>
-                    <div className="text-2xl font-bold text-purple-900">{response.tfr_ms.toFixed(1)}ms</div>
-                  </div>
-                  <div className="bg-gradient-to-br from-green-50 to-green-100 rounded-lg p-4 border border-green-200">
-                    <div className="flex items-center gap-2 mb-2">
-                      <div className="text-green-600">
-                        <Icons.CheckCircle />
-                      </div>
-                      <span className="text-xs font-semibold text-green-800">Total Latency</span>
-                    </div>
-                    <div className="text-2xl font-bold text-green-900">{response.total_latency_ms.toFixed(1)}ms</div>
-                  </div>
-                </div>
-
-                {/* Explanation */}
-                {response.explanation && (
-                  <div className="mb-6 p-4 bg-blue-50 border-l-4 border-blue-500 rounded">
-                    <p className="text-gray-700 italic">{response.explanation}</p>
-                  </div>
-                )}
-                {response.chart && (
-                  // ✅ Removed fixed height here. Let the component inside determine the height.
-                  <div className="mb-8 bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-                    <h3 className="text-lg font-bold text-gray-800 mb-4">Data Visualization</h3>
-                    <DataChart chartSpec={response.chart} />
-                  </div>
-                )}
-                {/* Data Table */}
-                <div className="mb-6">
-                  <h3 className="text-lg font-bold text-gray-800 mb-3">Query Results</h3>
-                  <div className="border border-gray-200 rounded-lg overflow-hidden">
-                    {renderTable()}
-                  </div>
-                </div>
-
-                {/* 📊 Enhanced Chart Rendering */}
-                {response.chart_spec && (
-                  <div className="mb-6">
-                    <DataChart chartSpec={response.chart_spec} />
-                  </div>
-                )}
+            {/* One-sentence insight */}
+            {response.explanation && (
+              <div className="p-4 bg-blue-50 border-l-4 border-blue-500 rounded-xl text-gray-700 text-sm italic">
+                💡 {response.explanation}
               </div>
             )}
 
-            {/* Metrics Tab */}
-            {activeTab === 'metrics' && metrics && (
-              <div className="p-8">
-                <div className="flex items-center gap-2 mb-6">
-                  <div className="text-purple-600">
-                    <Icons.BarChart />
-                  </div>
-                  <h3 className="text-2xl font-bold text-gray-800">Evaluation Metrics</h3>
-                </div>
-                
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                  {Object.entries(metrics).map(([key, value]) => {
-                    const isPercentage = typeof value === 'number' && value <= 1 && value >= 0;
-                    const displayValue = typeof value === 'number' 
-                      ? (isPercentage ? `${(value * 100).toFixed(2)}%` : value.toFixed(4))
-                      : String(value);
-                    
-                    return (
-                      <div key={key} className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg p-4 border border-gray-200 hover:shadow-md transition-shadow">
-                        <div className="text-xs font-semibold text-gray-600 uppercase tracking-wide mb-2">
-                          {key.replace(/_/g, ' ')}
-                        </div>
-                        <div className="text-2xl font-bold text-gray-900">{displayValue}</div>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
+            {/* SQL */}
+            {response.chosen_sql && (
+              <details className="bg-gray-900 text-green-300 rounded-xl p-4 text-xs" open>
+                <summary className="cursor-pointer font-semibold text-green-400 mb-2 select-none">
+                  Generated SQL
+                </summary>
+                <pre className="whitespace-pre-wrap">{response.chosen_sql}</pre>
+              </details>
             )}
+
+            {/* Chart */}
+            {response.chart && <DataChart chartSpec={response.chart} />}
+
+            {/* Table */}
+            {response.result?.success
+              ? renderTable()
+              : response.result?.error && (
+                  <div className="p-4 bg-red-50 border border-red-200 rounded-xl text-red-700 text-sm">
+                    <strong>Execution error:</strong> {response.result.error}
+                  </div>
+                )
+            }
           </div>
         )}
 
         {/* Footer */}
-        <div className="mt-8 text-center text-sm text-gray-500">
-          <p>Powered by LangChain + LangGraph + OpenAI • Built with React & Chart.js</p>
-        </div>
+        <p className="mt-12 text-center text-xs text-gray-400">
+          Powered by LangChain · LangGraph · OpenAI · FastAPI · React
+        </p>
       </div>
     </div>
   );
 };
 
-export default BICopilot;
+export default ManufacturingCopilot;

@@ -1,169 +1,229 @@
+from fastapi.middleware.cors import CORSMiddleware
+from backend.auth.router import router as auth_router, get_current_user
+from fastapi import Depends
+from slowapi import Limiter, _rate_limit_exceeded_handler
+from slowapi.util import get_remote_address
+from slowapi.errors import RateLimitExceeded
+from fastapi import Request
+from backend.kpis.router import router as kpi_router
+from fastapi.responses import JSONResponse
+import asyncio
+
 import os
 from dotenv import load_dotenv
+
+limiter = Limiter(key_func=get_remote_address)
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 load_dotenv(os.path.join(BASE_DIR, ".env"))
 
 import logging
-from typing import Any, Dict
+from contextlib import asynccontextmanager
+from typing import Any, Dict, List, Optional
 
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
+from sqlalchemy import text
 
 from backend.utils.logging_config import setup_logging
+from backend.utils.db import get_engine, run_sql
 from backend.agent.runner import run_agent
-from backend.eval.run_eval import run_full_evaluation
-from backend.eval.schema_drift import run_schema_drift_evaluation
-from backend.eval.safety_eval import run_safety_evaluation
-from backend.config import EVAL_TOP_K
+from backend.agent.nodes import warm_schema_cache
+from backend.config import OPENAI_API_KEY, OPENAI_MODEL
 
-
+setup_logging()
 logger = logging.getLogger("bi_copilot")
 
-app = FastAPI(title="BI Copilot (LangChain + LangGraph)")
+
+# ---------------------------------------------------------------------------
+# Lifespan
+# ---------------------------------------------------------------------------
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    logger.info("Startup: warming schema cache …")
+    try:
+        warm_schema_cache()
+        logger.info("Startup: schema cache ready.")
+    except Exception as exc:
+        logger.error("Startup: schema cache warm-up failed: %s", exc)
+    yield
+    logger.info("Shutdown: cleaning up.")
+
+
+# ---------------------------------------------------------------------------
+# App
+# ---------------------------------------------------------------------------
+
+app = FastAPI(
+    title="Manufacturing BI Copilot",
+    description="Natural language → SQL for manufacturing operations.",
+    version="2.0.0",
+    lifespan=lifespan,
+)
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=["http://localhost:5173"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-setup_logging()
+app.include_router(auth_router)
+app.include_router(kpi_router)
+app.state.limiter = limiter
+app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
+
+
+# ---------------------------------------------------------------------------
+# Schemas
+# ---------------------------------------------------------------------------
 
 class NLQueryRequest(BaseModel):
     question: str
-    top_k: int | None = None
+
+
+class SQLResultItem(BaseModel):
+    sql: str
+    success: bool
+    error: Optional[str] = None
+    latency_ms: float = 0.0
+    columns: List[str] = []
+    preview_rows: List[List[Any]] = []
+
 
 class NLQueryResponse(BaseModel):
     question: str
-    chosen_sql: str | None
-    candidates: list
-    chart: dict | None
+    chosen_sql: Optional[str]
+    result: Optional[SQLResultItem]
+    chart: Optional[Dict[str, Any]]
     tft_ms: float
     tfr_ms: float
     total_latency_ms: float
-    explanation: str | None
+    explanation: Optional[str]
+    safety_blocked: bool = False
 
-class EvalRequest(BaseModel):
-    split: str = "test"
-    top_k: int | None = None
 
-class EvalResponse(BaseModel):
-    metrics: Dict[str, Any]
+# ---------------------------------------------------------------------------
+# Query log helper
+# ---------------------------------------------------------------------------
 
-class SchemaDriftResponse(BaseModel):
-    baseline: Dict[str, Any]
-    drift: Dict[str, Any]
-    delta_asem: float | None
+def _save_query_log(
+    user_email: str,
+    question: str,
+    state: dict,
+    result_item: Optional[SQLResultItem],
+) -> None:
+    """
+    Persist every nl2sql call to query_logs.
+    Failures here are caught and logged — never allowed to break the API response.
+    """
+    try:
+        engine = get_engine()
+        with engine.connect() as conn:
+            conn.execute(
+                text("""
+                    INSERT INTO query_logs (
+                        user_email, question, chosen_sql,
+                        success, error,
+                        tft_ms, tfr_ms, total_latency_ms,
+                        safety_blocked, retried
+                    ) VALUES (
+                        :email, :question, :sql,
+                        :success, :error,
+                        :tft, :tfr, :total,
+                        :safety_blocked, :retried
+                    )
+                """),
+                {
+                    "email":         user_email,
+                    "question":      question,
+                    "sql":           state.get("chosen_sql"),
+                    "success":       result_item.success if result_item else False,
+                    "error":         result_item.error if result_item else None,
+                    "tft":           state.get("tft_ms", 0.0),
+                    "tfr":           state.get("tfr_ms", 0.0),
+                    "total":         state.get("metadata", {}).get("total_latency_ms", 0.0),
+                    "safety_blocked": state.get("safety_flags", {}).get("blocked", False),
+                    "retried":       state.get("retry_count", 0) > 0,
+                },
+            )
+            conn.commit()
+            logger.info("Query log saved for user: %s", user_email)
+    except Exception as exc:
+        # Never crash the request because of a logging failure
+        logger.error("Failed to save query log: %s", exc)
 
-class SafetyEvalResponse(BaseModel):
-    guardrail_rate: float
-    total_dangerous: int
-    blocked_dangerous: int
-    examples: list
+
+# ---------------------------------------------------------------------------
+# Core endpoint
+# ---------------------------------------------------------------------------
 
 @app.post("/agent/nl2sql", response_model=NLQueryResponse)
-def nl2sql(req: NLQueryRequest):
-    top_k = req.top_k or EVAL_TOP_K
-    state = run_agent(question=req.question, top_k=top_k)
+@limiter.limit("20/minute")
+async def nl2sql(
+    request: Request,
+    req: NLQueryRequest,
+    current_user: dict = Depends(get_current_user),
+):
+    if not req.question.strip():
+        raise HTTPException(status_code=400, detail="Question must not be empty.")
 
-    chosen_sql = state.get("chosen_sql")
-    candidates = state.get("executed_results", [])
-    chart = state.get("chart_spec")
-    tft_ms = state.get("tft_ms", 0.0)
-    tfr_ms = state.get("tfr_ms", 0.0)
-    total_latency_ms = state.get("metadata", {}).get("total_latency_ms", 0.0)
-    explanation = state.get("metadata", {}).get("explanation")
+    state = await asyncio.to_thread(run_agent, question=req.question)
+
+    executed = state.get("executed_results", [])
+    result_item = None
+    if executed:
+        r = executed[0]
+        result_item = SQLResultItem(
+            sql=r.get("sql", ""),
+            success=r.get("success", False),
+            error=r.get("error"),
+            latency_ms=r.get("latency_ms", 0.0),
+            columns=r.get("columns", []),
+            preview_rows=r.get("preview_rows", []),
+        )
+
+    # ✅ Save to query_logs — runs after response is built, never blocks it
+    _save_query_log(
+        user_email=current_user if isinstance(current_user, str) else current_user.get("email", "unknown"),
+        question=req.question,
+        state=state,
+        result_item=result_item,
+    )
 
     return NLQueryResponse(
         question=req.question,
-        chosen_sql=chosen_sql,
-        candidates=candidates,
-        chart=chart,
-        tft_ms=tft_ms,
-        tfr_ms=tfr_ms,
-        total_latency_ms=total_latency_ms,
-        explanation=explanation,
+        chosen_sql=state.get("chosen_sql"),
+        result=result_item,
+        chart=state.get("chart_spec"),
+        tft_ms=state.get("tft_ms", 0.0),
+        tfr_ms=state.get("tfr_ms", 0.0),
+        total_latency_ms=state.get("metadata", {}).get("total_latency_ms", 0.0),
+        explanation=state.get("metadata", {}).get("explanation"),
+        safety_blocked=state.get("safety_flags", {}).get("blocked", False),
     )
 
-@app.post("/agent/evaluate", response_model=EvalResponse)
-def evaluate(req: EvalRequest):
-    top_k = req.top_k or EVAL_TOP_K
-    metrics = run_full_evaluation(split=req.split, top_k=top_k)
-    return EvalResponse(metrics=metrics)
 
-@app.post("/agent/schema_drift_eval", response_model=SchemaDriftResponse)
-def schema_drift_eval():
-    result = run_schema_drift_evaluation()
-    return SchemaDriftResponse(
-        baseline=result["baseline"],
-        drift=result["drift"],
-        delta_asem=result["delta_asem"],
+# ---------------------------------------------------------------------------
+# Health
+# ---------------------------------------------------------------------------
+
+@app.get("/health")
+def health():
+    return {"status": "ok"}
+
+
+# ---------------------------------------------------------------------------
+# Global exception handler
+# ---------------------------------------------------------------------------
+
+@app.exception_handler(Exception)
+async def global_exception_handler(request: Request, exc: Exception):
+    logger.error("Unhandled exception: %s", exc, exc_info=True)
+    return JSONResponse(
+        status_code=500,
+        content={"detail": "An internal error occurred. Please try again."}
     )
-
-@app.post("/agent/safety_eval", response_model=SafetyEvalResponse)
-def safety_eval():
-    result = run_safety_evaluation()
-    return SafetyEvalResponse(
-        guardrail_rate=result["guardrail_rate"],
-        total_dangerous=result["total_dangerous"],
-        blocked_dangerous=result["blocked_dangerous"],
-        examples=result["examples"],
-    )
-
-from openai import OpenAI
-from backend.config import OPENAI_API_KEY, OPENAI_MODEL
-
-client = OpenAI(api_key=OPENAI_API_KEY)
-
-@app.get("/test_openai")
-def test_openai():
-    try:
-        response = client.chat.completions.create(
-            model=OPENAI_MODEL,
-            messages=[
-                {"role": "user", "content": "Hello"}
-            ],
-            max_tokens=10,
-        )
-
-        return {
-            "success": True,
-            "reply": response.choices[0].message.content,
-        }
-    except Exception as e:
-        return {
-            "success": False,
-            "error": str(e),
-        }
-
-
-from sqlalchemy import text
-from sqlalchemy import create_engine, inspect
-from backend.config import DATABASE_URL
-from sqlalchemy import inspect
-from backend.utils.db import get_engine, run_sql
-
-@app.get("/debug/tables")
-def debug_tables():
-    try:
-        engine = get_engine()
-        inspector = inspect(engine)
-        tables = inspector.get_table_names(schema="public")
-        return {"status": "ok", "tables": tables}
-    except Exception as e:
-        return {"status": "error", "error": str(e)}
-
-
-
-@app.get("/debug/sql")
-def debug_sql():
-    try:
-        engine = get_engine()
-        cols, rows = run_sql(engine, "SELECT 1")
-        return {"status": "ok", "rows": rows}
-    except Exception as e:
-        return {"status": "error", "error": str(e)}

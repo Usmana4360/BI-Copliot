@@ -20,4 +20,4 @@ This project implements an **agentic BI Copilot** that:
 See backend/README or code comments for details.
 
 uvicorn backend.app:app --reload
-uvicorn app:app --reload
+uvicorn backend.app:app --reload --env-file backend/.env

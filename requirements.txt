@@ -1,13 +1,5 @@
 fastapi
 uvicorn
-sqlalchemy
-psycopg2-binary
-pandas
-numpy
-scikit-learn
-langchain
-langchain-openai
-langchain-community
-langgraph
+openai
 python-dotenv
-typing-extensions
+slowapi

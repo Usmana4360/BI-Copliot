@@ -4,10 +4,9 @@ from sqlalchemy import create_engine, text
 from sqlalchemy.engine import Engine
 from sqlalchemy.exc import SQLAlchemyError
 
-from backend.config import DATABASE_URL, DRIFT_DATABASE_URL
+from backend.config import DATABASE_URL
 
 _engine: Engine = None
-_drift_engine: Engine = None
 
 
 def _create_engine(db_url: str) -> Engine:
@@ -20,14 +19,8 @@ def _create_engine(db_url: str) -> Engine:
     )
 
 
-def get_engine(drift: bool = False) -> Engine:
-    global _engine, _drift_engine
-
-    if drift:
-        if _drift_engine is None:
-            _drift_engine = _create_engine(DRIFT_DATABASE_URL)
-        return _drift_engine
-
+def get_engine() -> Engine:
+    global _engine
     if _engine is None:
         _engine = _create_engine(DATABASE_URL)
     return _engine
