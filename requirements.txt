@@ -3,3 +3,14 @@ uvicorn
 openai
 python-dotenv
 slowapi
+sqlalchemy
+python-jose
+email-validator
+passlib
+pandas
+numpy
+matplotlib
+langgraph
+langchain_openai
+psycopg2
+bcrypt==4.0.1

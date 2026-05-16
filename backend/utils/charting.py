@@ -8,7 +8,10 @@ def _coerce_types(df: pd.DataFrame) -> pd.DataFrame:
         if "date" in c.lower() or "time" in c.lower() or "year" in c.lower() or "month" in c.lower():
             df[c] = pd.to_datetime(df[c], errors="coerce")
         else:
-            df[c] = pd.to_numeric(df[c], errors="ignore")
+            # NEW — coerce non-numeric to NaN, then revert if the column came back all-NaN
+            converted = pd.to_numeric(df[c], errors="coerce")
+            if converted.notna().any():          # at least some values converted cleanly
+                df[c] = converted
     return df
 
 def _is_low_cardinality(series: pd.Series, threshold: int = 10) -> bool:
