@@ -5173,3 +5173,89 @@ During task with name 'suggest_chart' and id '8dd8d958-16fb-bf2d-8ce5-bc1a61f699
 2026-05-16 09:32:38,095 [INFO] bi_copilot - Trace 1778905948812 — run_agent complete. total_latency_ms=9308.49
 2026-05-16 09:32:38,903 [INFO] bi_copilot - Query log saved for user: usmanashraf4360@gmail.com
 2026-05-16 10:00:28,929 [INFO] bi_copilot - Shutdown: cleaning up.
+2026-05-18 11:47:30,108 [INFO] bi_copilot - Logging initialized
+2026-05-18 11:47:30,120 [INFO] bi_copilot - Startup: warming schema cache …
+2026-05-18 11:47:30,121 [INFO] bi_copilot - Schema cache miss — fetching schema from database …
+2026-05-18 11:47:41,642 [INFO] bi_copilot - Schema cached successfully (7871 chars).
+2026-05-18 11:47:41,642 [INFO] bi_copilot - Startup: schema cache ready.
+2026-05-18 11:49:28,155 [INFO] bi_copilot - Trace 1779086968155 — ingest_question: please show me compressor readings
+2026-05-18 11:49:35,936 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-18 11:49:35,950 [INFO] bi_copilot - Trace 1779086968155 — fast_path_sql generated query in 3995.5 ms
+2026-05-18 11:49:35,952 [INFO] bi_copilot - Trace 1779086968155 — guardrail: 1 candidate(s), blocked=False
+2026-05-18 11:49:36,389 [INFO] bi_copilot - Trace 1779086968155 — SQL executed in 435.8 ms, 12 rows returned.
+2026-05-18 11:49:36,477 [INFO] bi_copilot - Trace 1779086968155 — chart: area
+2026-05-18 11:49:37,632 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-18 11:49:37,635 [INFO] bi_copilot - Trace 1779086968155 — explanation added.
+2026-05-18 11:49:37,636 [INFO] bi_copilot - Trace 1779086968155 — run_agent complete. total_latency_ms=9498.74
+2026-05-18 11:49:38,085 [INFO] bi_copilot - Query log saved for user: usmanashraf4360@gmail.com
+2026-05-18 11:50:15,831 [INFO] bi_copilot - Trace 1779087015831 — ingest_question: show me daily power consumption
+2026-05-18 11:50:18,715 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-18 11:50:18,722 [INFO] bi_copilot - Trace 1779087015831 — fast_path_sql generated query in 2888.2 ms
+2026-05-18 11:50:18,725 [INFO] bi_copilot - Trace 1779087015831 — guardrail: 1 candidate(s), blocked=False
+2026-05-18 11:50:19,163 [INFO] bi_copilot - Trace 1779087015831 — SQL executed in 435.1 ms, 3 rows returned.
+2026-05-18 11:50:19,167 [INFO] bi_copilot - Trace 1779087015831 — chart: line
+2026-05-18 11:50:20,578 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-18 11:50:20,581 [INFO] bi_copilot - Trace 1779087015831 — explanation added.
+2026-05-18 11:50:20,582 [INFO] bi_copilot - Trace 1779087015831 — run_agent complete. total_latency_ms=4751.92
+2026-05-18 11:50:21,023 [INFO] bi_copilot - Query log saved for user: usmanashraf4360@gmail.com
+2026-05-18 11:50:40,194 [INFO] bi_copilot - Trace 1779087040194 — ingest_question: show me production machine wise
+2026-05-18 11:50:43,782 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-18 11:50:43,785 [INFO] bi_copilot - Trace 1779087040194 — fast_path_sql generated query in 3589.2 ms
+2026-05-18 11:50:43,787 [INFO] bi_copilot - Trace 1779087040194 — guardrail: 1 candidate(s), blocked=False
+2026-05-18 11:50:44,216 [INFO] bi_copilot - Trace 1779087040194 — SQL executed in 429.3 ms, 6 rows returned.
+2026-05-18 11:50:44,224 [INFO] bi_copilot - Trace 1779087040194 — chart: bar
+2026-05-18 11:50:45,566 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-18 11:50:45,574 [INFO] bi_copilot - Trace 1779087040194 — explanation added.
+2026-05-18 11:50:45,575 [INFO] bi_copilot - Trace 1779087040194 — run_agent complete. total_latency_ms=5382.66
+2026-05-18 11:50:46,017 [INFO] bi_copilot - Query log saved for user: usmanashraf4360@gmail.com
+2026-05-18 11:51:18,774 [INFO] bi_copilot - Trace 1779087078774 — ingest_question: show me power consumtion machine wise
+2026-05-18 11:51:20,518 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-18 11:51:20,520 [INFO] bi_copilot - Trace 1779087078774 — fast_path_sql generated query in 1742.3 ms
+2026-05-18 11:51:20,520 [INFO] bi_copilot - Trace 1779087078774 — guardrail: 1 candidate(s), blocked=False
+2026-05-18 11:51:20,957 [INFO] bi_copilot - Trace 1779087078774 — SQL executed in 435.4 ms, 4 rows returned.
+2026-05-18 11:51:20,964 [INFO] bi_copilot - Trace 1779087078774 — chart: pie
+2026-05-18 11:51:21,872 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-18 11:51:21,883 [INFO] bi_copilot - Trace 1779087078774 — explanation added.
+2026-05-18 11:51:21,885 [INFO] bi_copilot - Trace 1779087078774 — run_agent complete. total_latency_ms=3113.09
+2026-05-18 11:51:22,322 [INFO] bi_copilot - Query log saved for user: usmanashraf4360@gmail.com
+2026-05-18 11:59:22,321 [INFO] bi_copilot - Trace 1779087562321 — ingest_question: please show me power consumtion machine wise
+2026-05-18 11:59:24,020 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-18 11:59:24,032 [INFO] bi_copilot - Trace 1779087562321 — fast_path_sql generated query in 1681.8 ms
+2026-05-18 11:59:24,034 [INFO] bi_copilot - Trace 1779087562321 — guardrail: 1 candidate(s), blocked=False
+2026-05-18 11:59:24,496 [INFO] bi_copilot - Trace 1779087562321 — SQL executed in 460.0 ms, 4 rows returned.
+2026-05-18 11:59:24,528 [INFO] bi_copilot - Trace 1779087562321 — chart: pie
+2026-05-18 11:59:25,418 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-18 11:59:25,422 [INFO] bi_copilot - Trace 1779087562321 — explanation added.
+2026-05-18 11:59:25,424 [INFO] bi_copilot - Trace 1779087562321 — run_agent complete. total_latency_ms=3133.41
+2026-05-18 11:59:25,896 [INFO] bi_copilot - Query log saved for user: usmanashraf4360@gmail.com
+2026-05-18 12:11:28,972 [INFO] bi_copilot - Trace 1779088288972 — ingest_question: please show me power consumption
+2026-05-18 12:11:32,291 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-18 12:11:32,323 [INFO] bi_copilot - Trace 1779088288972 — fast_path_sql generated query in 3293.2 ms
+2026-05-18 12:11:32,332 [INFO] bi_copilot - Trace 1779088288972 — guardrail: 1 candidate(s), blocked=False
+2026-05-18 12:11:33,167 [INFO] bi_copilot - Trace 1779088288972 — SQL executed in 835.0 ms, 3 rows returned.
+2026-05-18 12:11:33,387 [INFO] bi_copilot - Trace 1779088288972 — chart: line
+2026-05-18 12:11:34,801 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-18 12:11:34,807 [INFO] bi_copilot - Trace 1779088288972 — explanation added.
+2026-05-18 12:11:34,810 [INFO] bi_copilot - Trace 1779088288972 — run_agent complete. total_latency_ms=5917.39
+2026-05-18 12:11:35,621 [INFO] bi_copilot - Query log saved for user: usmanashraf4360@gmail.com
+2026-05-18 14:47:16,415 [INFO] bi_copilot - Trace 1779097636415 — ingest_question: show me power consumption machine wise
+2026-05-18 14:47:20,147 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-18 14:47:20,197 [INFO] bi_copilot - Trace 1779097636415 — fast_path_sql generated query in 3732.1 ms
+2026-05-18 14:47:20,207 [INFO] bi_copilot - Trace 1779097636415 — guardrail: 1 candidate(s), blocked=False
+2026-05-18 14:47:21,130 [INFO] bi_copilot - Trace 1779097636415 — SQL executed in 917.0 ms, 4 rows returned.
+2026-05-18 14:47:21,258 [INFO] bi_copilot - Trace 1779097636415 — chart: pie
+2026-05-18 14:47:23,862 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-18 14:47:23,866 [INFO] bi_copilot - Trace 1779097636415 — explanation added.
+2026-05-18 14:47:23,866 [INFO] bi_copilot - Trace 1779097636415 — run_agent complete. total_latency_ms=7567.12
+2026-05-18 14:47:24,812 [INFO] bi_copilot - Query log saved for user: usmanashraf4360@gmail.com
+2026-05-18 14:57:38,984 [INFO] bi_copilot - Trace 1779098258984 — ingest_question: sdf
+2026-05-18 14:57:42,830 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-18 14:57:42,848 [INFO] bi_copilot - Trace 1779098258984 — fast_path_sql generated query in 3834.2 ms
+2026-05-18 14:57:42,852 [INFO] bi_copilot - Trace 1779098258984 — guardrail: 1 candidate(s), blocked=False
+2026-05-18 14:57:43,647 [INFO] bi_copilot - Trace 1779098258984 — SQL executed in 794.5 ms, 11 rows returned.
+2026-05-18 14:57:43,794 [INFO] bi_copilot - Trace 1779098258984 — chart: none
+2026-05-18 14:57:45,060 [INFO] httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-18 14:57:45,065 [INFO] bi_copilot - Trace 1779098258984 — explanation added.
+2026-05-18 14:57:45,067 [INFO] bi_copilot - Trace 1779098258984 — run_agent complete. total_latency_ms=6122.64
+2026-05-18 14:57:45,980 [INFO] bi_copilot - Query log saved for user: usmanashraf4360@gmail.com
+2026-05-18 15:41:05,381 [INFO] bi_copilot - Shutdown: cleaning up.

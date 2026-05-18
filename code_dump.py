@@ -1,8 +1,8 @@
 # smart_project_dump.py
 import os
 
-root = r"C:\Users\lenovo\Documents\Project\AI_copilot\BI-Copliot"  # Change this to your project root if needed
-output_file = r"C:\Users\lenovo\Documents\Project\AI_copilot\BI-Copliot\code_dump.txt"  # Output file for the code dump
+root = r"D:\Projects\AI_Copilot\BI-Copliot\frontend"  # Change this to your project root if needed
+output_file = r"D:\Projects\AI_Copilot\BI-Copliot\code_dump.txt" # Output file for the code dump
 
 # Directories and files to completely skip
 EXCLUDE_DIRS = {

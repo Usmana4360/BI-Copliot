@@ -140,7 +140,7 @@ const StatCard = ({ icon, label, value, colorClass }) => (
 // ---------------------------------------------------------------------------
 // Main component
 // ---------------------------------------------------------------------------
-const ManufacturingCopilot = () => {
+const QarshiCopilot = () => {
   const { token, logout } = useAuth();
   const navigate = useNavigate();   // ✅ moved INSIDE the component
   const [question, setQuestion] = useState('');
@@ -180,7 +180,7 @@ const ManufacturingCopilot = () => {
       <div className="overflow-x-auto rounded-lg border border-gray-200">
         <table className="w-full border-collapse">
           <thead>
-            <tr className="bg-gradient-to-r from-blue-50 to-indigo-50">
+            <tr className="bg-gradient-to-r from-red-50 to-red-100">
               {r.columns.map((c, i) => (
                 <th key={i} className="px-4 py-3 text-left text-sm font-semibold text-gray-700 border-b-2 border-indigo-200">
                   {c}
@@ -208,17 +208,28 @@ const ManufacturingCopilot = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50 p-8">
+    <div className="min-h-screen bg-gradient-to-br from-red-50 via-white to-red-100 p-8">
       <div className="max-w-6xl mx-auto">
 
         {/* Header */}
         <div className="text-center mb-10">
-          <div className="flex items-center justify-center gap-3 mb-3">
-            <span className="text-blue-700"><Icons.Factory /></span>
+          <div className="flex items-center justify-center gap-4 mb-3">
+
+            {/* Logo */}
+            <div className="w-14 h-14 bg-white rounded-xl shadow-sm flex items-center justify-center overflow-hidden border border-gray-200">
+              <img
+                src="/logo.jpg"
+                alt="Qarshi Logo"
+                className="w-full h-full object-contain"
+              />
+            </div>
+
+            {/* Title */}
             <h1 className="text-4xl font-extrabold text-gray-900 tracking-tight">
-              Manufacturing BI Copilot
+              Qarshi AI Copilot
             </h1>
           </div>
+
           <p className="text-gray-500 text-sm">
             Ask questions about production, downtime, inventory &amp; fulfilment in plain English
           </p>
@@ -226,7 +237,7 @@ const ManufacturingCopilot = () => {
         <div className="flex items-center justify-center gap-3 mt-4">
           <button
             onClick={() => navigate("/dashboard")}
-            className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold px-5 py-2 rounded-xl transition-colors"
+            className="flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white text-sm font-semibold px-5 py-2 rounded-xl transition-colors"
           >
             <Icons.BarChart /> Dashboard
           </button>
@@ -257,7 +268,7 @@ const ManufacturingCopilot = () => {
               <button
                 key={q}
                 onClick={() => setQuestion(q)}
-                className="text-xs bg-blue-50 hover:bg-blue-100 text-blue-700 px-3 py-1 rounded-full border border-blue-200 transition-colors"
+                className="text-xs bg-red-50 hover:bg-red-100 text-red-700 px-3 py-1 rounded-full border border-red-200 transition-colors"
               >
                 {q}
               </button>
@@ -270,14 +281,14 @@ const ManufacturingCopilot = () => {
             onChange={(e) => setQuestion(e.target.value)}
             onKeyDown={handleKeyDown}
             placeholder="e.g. Show machine downtime by day for the last 30 days …   (Ctrl+Enter to run)"
-            className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-400 focus:border-transparent outline-none text-sm mb-4 resize-none"
+            className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-gray-400 focus:border-transparent outline-none text-sm mb-4 resize-none"
             disabled={loading}
           />
 
           <button
             onClick={runQuery}
             disabled={loading || !question.trim()}
-            className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-300 text-white font-semibold py-3 px-8 rounded-xl transition-colors shadow-sm"
+            className="flex items-center gap-2 bg-gray-600 hover:bg-red-700 disabled:bg-gray-300 text-white font-semibold py-3 px-8 rounded-xl transition-colors shadow-sm"
           >
             {loading ? <><Icons.Loader /> Analysing…</> : <><Icons.Play /> Run Query</>}
           </button>
@@ -307,7 +318,7 @@ const ManufacturingCopilot = () => {
                 icon={<span className="text-indigo-600"><Icons.Clock /></span>}
                 label="DB latency (TFR)"
                 value={`${response.tfr_ms.toFixed(0)} ms`}
-                colorClass="bg-indigo-50 border-indigo-200 text-indigo-900"
+                colorClass="bg-indigo-50 border-red-200 text-indigo-900"
               />
               <StatCard
                 icon={<span className="text-green-600"><Icons.CheckCircle /></span>}
@@ -358,4 +369,4 @@ const ManufacturingCopilot = () => {
   );
 };
 
-export default ManufacturingCopilot;
+export default QarshiCopilot;
